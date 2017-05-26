@@ -38,10 +38,10 @@ This repo is structured as follows
 ``` text
 ├── LICENSE
 ├── README.md
-└── docs
+└── data
     ├── data-sources                  Utilities around obtaining data
-    └── design
-        └── schema                    Data models
+    ├── schema                        Data models
+    └── scripts                       Helper scripts
 ```
 
 ## Bugs / Feedback / Suggestions
