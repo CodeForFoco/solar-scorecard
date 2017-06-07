@@ -8,6 +8,22 @@
   <script type="text/javascript" src="js/d3/components/d3-time-format.min.js"></script>
 
   <script type="text/javascript" src="js/projection.js"></script>
+  <script type="text/javascript">
+    d3.projectionChart.ready(function() {
+      var data = d3.projectionChart.generateDummyData();
+      var chart = d3.projectionChart().data(data);
+
+      d3.select(".solar-progress-js")
+        .call(chart)
+
+      window.setInterval(function() {
+        chart.data(d3.projectionChart.generateDummyData());
+        chart.update();
+      }, 2000);
+    })
+
+    //projectionChart();
+  </script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css"/>
 
 </head>
