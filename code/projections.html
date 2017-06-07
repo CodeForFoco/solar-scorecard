@@ -17,8 +17,11 @@
         .call(chart)
 
       window.setInterval(function() {
-        chart.data(d3.projectionChart.generateDummyData());
-        chart.update();
+        chart
+          .data(d3.projectionChart.generateDummyData())
+          .width(d3.projectionChart.randomIntGen(700,900)())
+          .height(d3.projectionChart.randomIntGen(400,500)())
+          .update()
       }, 2000);
     })
 

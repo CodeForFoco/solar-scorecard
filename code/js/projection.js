@@ -3,16 +3,23 @@
 // D3Selection -> ChartInterface
 d3.projectionChart = function projectionChart() {
 
-  // Outer Sizing
-  var width = 960;
-  var height = 500;
+  // Default Sizing
+  var width, height, data;
   var margin = {top: 30, right: 50, bottom: 60, left: 50};
+  setWidth(900);
+  setHeight(500);
 
-  // Inner Sizing
-  var cwidth = width - margin.left - margin.right;
-  var cheight = height - margin.top - margin.bottom;
-  var updateData = function() {};
-  var data;
+  function setWidth(value) {
+    width = value;
+    innerWidth = width - margin.left - margin.right;
+  }
+
+  function setHeight(value) {
+    height = value;
+    innerHeight = height - margin.top - margin.bottom;
+  }
+
+  var updateView = function() {};
 
   var i = function(selection) {
 
@@ -30,14 +37,14 @@ d3.projectionChart = function projectionChart() {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-        // Build Chart Scales and Components
+        // Initial Rendering of chart...
         var xData = d3.scaleTime()
         .domain(d3.extent(data.all, function(d) { return d.date; }))
-        .range([0,cwidth])
+        .range([0,innerWidth])
 
         var yData = d3.scaleLinear()
         .domain(d3.extent(data.all, function(d) { return d.megawatts}))
-        .range([cheight, 0])
+        .range([innerHeight, 0])
 
         var xAxis = d3.axisBottom(xData)
         .ticks(10)
@@ -53,7 +60,7 @@ d3.projectionChart = function projectionChart() {
           .data(data.all)
           .enter()
           .append('g').attr('class', 'xAxis')
-          .attr("transform", "translate(0," + cheight + ")")
+          .attr("transform", "translate(0," + innerHeight + ")")
           .call(xAxis)
 
         chart.selectAll("g.yAxis")
@@ -82,16 +89,17 @@ d3.projectionChart = function projectionChart() {
           .attr('d', line)
           .attr('stroke-width', 3)
 
-      updateData = function() {
+      // Update the Chart
+      updateView = function() {
 
         // Build Chart Scales and Components
         var xData = d3.scaleTime()
         .domain(d3.extent(data.all, function(d) { return d.date; }))
-        .range([0,cwidth])
+        .range([0,innerWidth])
 
         var yData = d3.scaleLinear()
         .domain(d3.extent(data.all, function(d) { return d.megawatts}))
-        .range([cheight, 0])
+        .range([innerHeight, 0])
 
         var xAxis = d3.axisBottom(xData)
         .ticks(10)
@@ -123,10 +131,7 @@ d3.projectionChart = function projectionChart() {
           .duration(500)
           .attr('d', line)
 
-
       }
-
-
     })
   }
 
@@ -137,45 +142,45 @@ d3.projectionChart = function projectionChart() {
 
   i.data = function(d) {
     data = d;
-    updateData();
     return i;
   }
 
   i.width = function(value) {
     if (!arguments.length) return width;
-    width = value;
+    setWidth(value);
     return i;
   }
 
   i.height = function(value) {
     if (!arguments.length) return height;
-    height = value;
+    setHeight(value)
     return i;
   }
 
   i.update = function() {
-    updateData();
+    updateView();
   }
+
+
 
   return i;
 
 }
 
+// Int -> Int -> (Void -> Int)
+d3.projectionChart.randomIntGen = function randomIntGen(a, b) {
+  var max = Math.max(a, b);
+  var min = Math.min(a, b);
+  return function() {
+    return Math.round(min + (Math.random() * (max - min)))
+  }
+}
 // { all : Array DataPoint, past : Array DataPoint, currentFuture : Array DataPoint }
 d3.projectionChart.generateDummyData = function generateDummyData() {
 
   // Date -> Date -> Boolean
   function yearBefore(d1, d2) {
     return d1.getFullYear() <= d2.getFullYear();
-  }
-
-  // Int -> Int -> (Void -> Int)
-  function randomIntGen(a, b) {
-    var max = Math.max(a, b);
-    var min = Math.min(a, b);
-    return function() {
-      return Math.round(min + (Math.random() * (max - min)))
-    }
   }
 
   var allYears = [];
@@ -186,7 +191,7 @@ d3.projectionChart.generateDummyData = function generateDummyData() {
   var data = allYears.map(function(date, index) {
       return {
         date : date,
-        megawatts : randomIntGen(index * 3, (index * 3)+15)()
+        megawatts : d3.projectionChart.randomIntGen(index * 3, (index * 3)+15)()
       }
   })
 
