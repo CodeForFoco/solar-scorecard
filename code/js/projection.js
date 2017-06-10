@@ -4,25 +4,34 @@
 d3.projectionChart = function projectionChart() {
 
   // Default Sizing
-  var width = 900, height = 500, data;
-
+  var innerWidth, innerHeight, data;
+  var width = 900, height = 500;
+  var minMargin = 50;
   var margin = {top: 30, right: 50, bottom: 60, left: 50};
 
   function setWidth(value) {
     width = value;
+    var marginSize = width * .05;
+    margin.right = Math.max(marginSize, minMargin);
+    margin.left = Math.max(marginSize, minMargin);
     innerWidth = width - margin.left - margin.right;
   }
 
   function setHeight(value) {
     height = value;
+    var marginSize = width * .05;
+    margin.right = Math.max(marginSize, minMargin);
+    margin.left = Math.max(marginSize, minMargin);
     innerHeight = height - margin.top - margin.bottom;
   }
 
   setWidth(width);
   setHeight(height);
-
   var updateView = function() {};
 
+  // We'll assume selection returns a single element.
+  // If multiple elements are returned they will all
+  // share the same display variables.
   var i = function(selection) {
 
     // Data should be
@@ -33,11 +42,15 @@ d3.projectionChart = function projectionChart() {
     selection.each(function() {
 
       // Draw Chart
-      var chart = d3.select(this).append('svg')
-      .attr("width", width)
-      .attr("height", height)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      var root = d3.select(this).append('svg')
+        .attr('class', 'root')
+        .attr("width", width)
+        .attr("height", height)
+
+      var chart = root
+        .append("g")
+        .attr('class', "margin")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       // Initial Rendering of chart...
       var xData = d3.scaleTime()
@@ -100,6 +113,21 @@ d3.projectionChart = function projectionChart() {
       // Update the Chart
       updateView = function() {
 
+        console.log(width, height)
+        // chart.each(function() {
+        root
+          .attr("width", width)
+          .attr("height", height)
+
+        root.selectAll('g.margin')
+          .attr(
+            "transform",
+            "translate(" + margin.left + "," + margin.top + ")"
+          );
+          // .selectAll("g")
+          // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        // })
+
         // Build Chart Scales and Components
         var xData = d3.scaleTime()
         .domain(d3.extent(data.all, function(d) { return d.date; }))
@@ -122,23 +150,15 @@ d3.projectionChart = function projectionChart() {
         var yAxis = d3.axisLeft(yData).ticks(10);
 
         chart.selectAll("g.xAxis")
-          .transition()
-          .duration(500)
           .call(xAxis);
 
         chart.selectAll("g.yAxis")
-          .transition()
-          .duration(500)
           .call(yAxis);
 
-        d3.selectAll('path.future')
-          .transition()
-          .duration(500)
+        chart.selectAll('path.future')
           .attr('d', line);
 
-        d3.selectAll('path.past')
-          .transition()
-          .duration(500)
+        chart.selectAll('path.past')
           .attr('d', line);
 
       };
@@ -162,12 +182,14 @@ d3.projectionChart = function projectionChart() {
   i.width = function(value) {
     if (!arguments.length) return width;
     setWidth(value);
+    updateView();
     return i;
   };
 
   i.height = function(value) {
     if (!arguments.length) return height;
     setHeight(value);
+    updateView();
     return i;
   };
 
@@ -177,52 +199,4 @@ d3.projectionChart = function projectionChart() {
 
   return i;
 
-}
-
-// Int -> Int -> (Void -> Int)
-d3.projectionChart.randomIntGen = function randomIntGen(a, b) {
-  var max = Math.max(a, b);
-  var min = Math.min(a, b);
-  return function() {
-    return Math.round(min + (Math.random() * (max - min)))
-  }
-}
-// { all : Array DataPoint, past : Array DataPoint, currentFuture : Array DataPoint }
-d3.projectionChart.generateDummyData = function generateDummyData() {
-
-  // Date -> Date -> Boolean
-  function yearBefore(d1, d2) {
-    return d1.getFullYear() <= d2.getFullYear();
-  }
-
-  var allYears = [];
-  for (var year = 2005; year <= 2030; year++) {
-    allYears.push(new Date(year + "/01/01"));
-  }
-
-  var data = allYears.map(function(date, index) {
-    return {
-      date : date,
-      megawatts : d3.projectionChart.randomIntGen(index * 3, (index * 3)+15)()
-    }
-  })
-
-  var pastData = data.filter(function(d) {
-    return yearBefore(d.date, new Date())
-  })
-
-  var currentFutureData = data.filter(function(d) {
-    return !yearBefore(d.date, new Date()) ||
-           d.date.getFullYear() == (new Date()).getFullYear();
-  });
-
-  return {
-    all : data,
-    past : pastData,
-    currentFuture : currentFutureData
-  }
-}
-
-d3.projectionChart.ready = function(domReadyFn) {
-  document.addEventListener('DOMContentLoaded', domReadyFn);
 }
