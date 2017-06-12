@@ -15,8 +15,11 @@
     "type": "git",
     "url": "git+https://github.com/CodeForFoco/solar-scorecard.git"
   },
-  "author": "",
-  "license": "LicenseRef-LICENSE",
+  "author": "Code for Fort Collins",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/CodeForFoco/solar-scorecard/blob/master/LICENSE"
+  },
   "bugs": {
     "url": "https://github.com/CodeForFoco/solar-scorecard/issues"
   },
