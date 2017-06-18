@@ -110,6 +110,13 @@ d3.projectionChart = function projectionChart() {
         .attr('d', line)
         .attr('stroke-width', 3);
 
+      // chart.selectAll("text.yaxis")
+      //   .enter()
+      //   .append('text')
+      //   .attr('class', 'yaxis')
+      //   .attr('x', 0)
+      //   .attr('y', 0)
+      //   .text('KW')
       // Update the Chart
       updateView = function() {
 
