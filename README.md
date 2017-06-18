@@ -8,9 +8,9 @@ Create an up-to-date web-based data visualization tool for tracking solar contri
 
 ## Methodology
 
-Since the Climate Action Plan goal is in terms of aggregate 2005 greenhouse gases (ghc), for our purposes we will focus only on the emissions due to electrical.  Based on [Fort Collins 2015 Community Carbon Inventory](https://www.fcgov.com/climateaction/pdf/2015-community-carbon-inventory.pdf?1494967837), we will assume that 50% of emissions are due to electrical activity.
+Since the Climate Action Plan goal is in terms of aggregate 2005 greenhouse gases (ghg), for our purposes we will focus only on the emissions due to electrical.  Based on [Fort Collins 2015 Community Carbon Inventory](https://www.fcgov.com/climateaction/pdf/2015-community-carbon-inventory.pdf?1494967837), we will assume that 50% of emissions are due to electrical activity.
 
-In 2005, ghc emissions due to CO2 was 2.3 Millions Metric Tons (mmt).  Therefore, we will assume the electrical only emissions in 2005 were **1,150,000 mt**. Therefore, the 2020 electrical-only goal is **920,000 mt (230,000 mt offset)**, and the 2030 electrical-only goal is **230,000 mt (920,000 mt offset)**.
+In 2005, ghg emissions due to CO2 was 2.3 Millions Metric Tons (mmt).  Therefore, we will assume the electrical only emissions in 2005 were **1,150,000 mt**. Therefore, the 2020 electrical-only goal is **920,000 mt (230,000 mt offset)**, and the 2030 electrical-only goal is **230,000 mt (920,000 mt offset)**.
 
 Based on the [EPA's Greenhouse Gases Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references), we will assume that every kilowatt hour (kWh) of solar produced will offset emissions by **.000703 mt**.
 
@@ -21,21 +21,22 @@ Using these numbers we can express the 2020, 2030, and 2050 goals in terms of th
 230,000 mt / (.000703 mt / 1 kWh * 8750 hr) =  37,390 kw
 
 2030 Offset Goal
-920,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 149,563 kw offsets needed
+920,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 149,563 kw
 
 2050 Offset Goal
-1,150,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 186,953 kw offsets needed
+1,150,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 186,953 kw
 ```
 
-Using the [PVWatts Calculator](http://pvwatts.nrel.gov/pvwatts.php) we can calculated Fort Collin's Photovoltaic system output in kWh per year.  Assuming the variables in the table below, Fort Collin's system output is **6,111 kWh/year**.  Since there are 8760 hours in a year, Fort Collin's power output is *0.6976 kW*.
+Using the [PVWatts Calculator](http://pvwatts.nrel.gov/pvwatts.php) we can calculated Fort Collin's Photovoltaic system output in kWh per year.  Assuming the variables in the table below, Fort Collin's system output is **6,111 kWh/year**.  Since there are 8760 hours in a year, Fort Collin's power output is **0.6976 kW**.
 
-|Variable|Value|
-DC System Size (kW) | 4
-Module Type | Standard
-Array Type | Fixed (open rack)
-System Losses (%) | 14
-Tilt(deg) | 20
-Azimuth(deg) | 180
+| Variable | Value |
+| -------- | ----- |
+| DC System Size (kW) | 4 |
+| Module Type | Standard |
+| Array Type | Fixed (open rack) |
+| System Losses (%) | 14 |
+| Tilt(deg) | 20 |
+| Azimuth(deg) | 180 |
 
 
 ### Detailed Project Requirements
