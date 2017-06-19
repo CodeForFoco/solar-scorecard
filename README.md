@@ -19,13 +19,13 @@ Using these numbers we can express the 2020, 2030, and 2050 goals in terms of th
 
 ```
 2020: 20% Reduction
-230,000 mt / (.000703 mt / 1 kWh * 8750 hr) =  37,390 kW
+230,000 mt / (.000703 mt / 1 kWh * 8760 hr) =  37,348 kW
 
 2030: 80% Reduction
-920,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 149,563 kW
+920,000 mt / (.000703 mt / 1 kWh * 8760 hr) = 149,392 kW
 
 2050: 100% Reduction (carbon neutrality)
-1,150,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 186,953 kW
+1,150,000 mt / (.000703 mt / 1 kWh * 8760 hr) = 186,740 kW
 ```
 
 Using the [PVWatts Calculator](http://pvwatts.nrel.gov/pvwatts.php) we can calculate Fort Collins' photovoltaic system output in kWh per year.  Assuming the variables in the table below, Fort Collins' system output is **6,111 kWh/year**.  Since there are 8760 hours in a year, Fort Collins' power output is **0.6976 kW**.
