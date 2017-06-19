@@ -10,20 +10,20 @@ Create an up-to-date web-based data visualization tool for tracking solar contri
 
 Since the Climate Action Plan goal is in terms of aggregate 2005 greenhouse gases (ghg), for our purposes we will focus only on the emissions due to electrical.  Based on [Fort Collins 2015 Community Carbon Inventory](https://www.fcgov.com/climateaction/pdf/2015-community-carbon-inventory.pdf?1494967837), we will assume that 50% of emissions are due to electrical activity.
 
-In 2005, ghg emissions due to CO2 was 2.3 Millions Metric Tons (mmt).  Therefore, we will assume the electrical only emissions in 2005 were **1,150,000 mt**. Therefore, the 2020 electrical-only goal is **920,000 mt (230,000 mt offset)**, and the 2030 electrical-only goal is **230,000 mt (920,000 mt offset)**.
+In 2005, ghg emissions due to CO2 was 2.3 Millions Metric Tons (mmt).  Therefore, we will assume the electrical only emissions in 2005 were **1,150,000 mt**. Therefore, the 2020 electrical-only goal is **920,000 mt (230,000 mt reduction)**, and the 2030 electrical-only goal is **230,000 mt (920,000 mt reduction)**.
 
-Based on the [EPA's Greenhouse Gases Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references), we will assume that every kilowatt hour (kWh) of solar produced will offset emissions by **.000703 mt**.
+Based on the [EPA's Greenhouse Gases Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references), we will assume that every kilowatt hour (kWh) of solar produced will reduce emissions by **.000703 mt**.
 
-Using these numbers we can express the 2020, 2030, and 2050 goals in terms of the kilowatt offsets needed to meet the goal.
+Using these numbers we can express the 2020, 2030, and 2050 goals in terms of the kilowatt reductions needed to meet each goal.
 
 ```
-2020 Offset Goal
+2020: 20% Reduction Goal
 230,000 mt / (.000703 mt / 1 kWh * 8750 hr) =  37,390 kw
 
-2030 Offset Goal
+2030: 80% Reduction Goal
 920,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 149,563 kw
 
-2050 Offset Goal
+2050: 100% Reduction Goal
 1,150,000 mt / (.000703 mt / 1 kWh * 8750 hr) = 186,953 kw
 ```
 
