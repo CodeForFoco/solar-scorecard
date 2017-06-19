@@ -4,15 +4,22 @@
   "private": true,
   "description": "Solar Scorecard project: track Fort Collins renewable/solar energy goals.",
   "main": "index.js",
+  "bin": {
+    "browser-sync": "./node_modules/browser-sync/bin/browser-sync.js"
+  },
   "scripts": {
+    "start": "browser-sync start --server -f ./code/**/*.html ./code/**/*.css ./code/**/*.js --open external --startPath ./code/projections.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CodeForFoco/solar-scorecard.git"
   },
-  "author": "",
-  "license": "LicenseRef-LICENSE",
+  "author": "Code for Fort Collins",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/CodeForFoco/solar-scorecard/blob/master/LICENSE"
+  },
   "bugs": {
     "url": "https://github.com/CodeForFoco/solar-scorecard/issues"
   },
@@ -22,5 +29,8 @@
     "d3-axis": "^1.0.7",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.12"
   }
 }
