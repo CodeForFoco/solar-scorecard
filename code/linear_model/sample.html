@@ -17,7 +17,7 @@
       function drawChart() {
 
         // Original reps the data you'd get from the city, using [year, value] construct
-        var original = [ [2010, 51],[2011, 54],[2012, 61],[2013, 65] ]
+        var original = [ [2010, 50],[2011, 55],[2012, 54],[2013, 60] ]
         linearmodel = new LinearModel(original)
         // linearmodel.slope  is the slope
         // linearmodel.intercept  is the intercept
@@ -26,18 +26,28 @@
         var line_of_best_fit = linearmodel.generate_lobf() // returns the same format [[year, value], ... ]
 
         // Ok, that works, but lets project a year going forward: 
-        line_of_best_fit.push(linearmodel.project(2014))
 
         // If we wanted to do 5 years forward, a simple for loop would do the trick, the project() function is a very simple math eq
 
         // Lets format the data for google!  From here below, is just a sample, for visualization
         out = [];
-        out.push(["Year", "Actual", "Line of Best Fit"])
+        out.push(["Year", "Actual", "Line of Best Fit", "Projection+", "Projection-"])
         for (var x = 0; x < original.length; x++) {
-            out.push( [original[x][0] +"", original[x][1], line_of_best_fit[x][1]] )
+            out.push( [original[x][0] +"", original[x][1], line_of_best_fit[x][1], null, null] )
         }
+
         // for projection
-        out.push(["2014", null, line_of_best_fit[4][1]])
+        out[out.length -1][3] = out[out.length -1][2]
+        out[out.length -1][4] = out[out.length -1][2]
+        var mod = 1- linearmodel.r_squared
+        y1p = linearmodel.project(2014)[1] * (1 + mod)
+        y2p = linearmodel.project(2015)[1] * (1 + mod * 2)
+        y1m = linearmodel.project(2014)[1] - (linearmodel.project(2014)[1] * mod)
+        y2m = linearmodel.project(2015)[1] - (linearmodel.project(2014)[1] * mod * 2)
+
+        out.push(["2014", null, null, y1p, y1m])
+        out.push(["2015", null, null, y2p, y2m])
+        console.log(out)
         var data = google.visualization.arrayToDataTable(out)
 
         var options = {

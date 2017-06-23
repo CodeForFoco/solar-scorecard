@@ -2,9 +2,11 @@ class LinearModel {
     original: number[][];
     slope: number;
     intercept: number;
+    r_squared: number;
     constructor(original: number[][]) {
         this.original = original;
         this.linear_regression();
+        this.r_squared = this.coefficient_of_determination();
     }
     _sum(arr: number[]): number {
         var num = 0
@@ -21,6 +23,44 @@ class LinearModel {
             out.push([element[0], y])
         });
         return out        
+    }
+
+    squared_error(ys_orig: number[], ys_line: number[]): number {
+        var out = []
+        for(let x = 0; x < ys_orig.length; x++) {
+            out.push( (ys_line[x] - ys_orig[x]) ** 2 )
+        }
+        return this._sum(out) 
+    }
+
+    _mean(arr: number[]): number {
+        let out = 0
+        arr.forEach(element => {
+            out += element
+        });
+        return out / arr.length
+    }
+
+    coefficient_of_determination() {
+        var y = []
+        this.original.forEach(element => {
+            y.push(element[1])
+        });
+        var lobf = this.generate_lobf()
+        var y_lobf = []
+        lobf.forEach(element => {
+            y_lobf.push(element[1])
+        });
+
+
+        var y_mean_line = []
+        y.forEach(element => {
+            y_mean_line.push(this._mean(y))
+        });
+
+        var squared_error_regr = this.squared_error(y, y_lobf)
+        var squared_error_y_mean = this.squared_error(y, y_mean_line)
+        return 1 - (squared_error_regr/squared_error_y_mean)
     }
 
     project(num: number): number[] {
