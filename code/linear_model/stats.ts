@@ -9,6 +9,7 @@ class LinearModel {
         this.r_squared = this.coefficient_of_determination();
     }
     _sum(arr: number[]): number {
+        // Sums an array
         var num = 0
         arr.forEach(element => {
             num += element
@@ -17,6 +18,7 @@ class LinearModel {
     }
 
     generate_lobf() {
+        // generates line of best fit
         let out = []
         this.original.forEach(element => {
             let y = this.slope * element[0] + this.intercept
@@ -26,6 +28,7 @@ class LinearModel {
     }
 
     squared_error(ys_orig: number[], ys_line: number[]): number {
+        // determines the difference or 'error' from our line of best fit, compaired to the original data
         var out = []
         for(let x = 0; x < ys_orig.length; x++) {
             out.push( (ys_line[x] - ys_orig[x]) ** 2 )
@@ -34,6 +37,7 @@ class LinearModel {
     }
 
     _mean(arr: number[]): number {
+        // Returns the mean of an array
         let out = 0
         arr.forEach(element => {
             out += element
@@ -42,6 +46,8 @@ class LinearModel {
     }
 
     coefficient_of_determination() {
+        // This determins our confidence (r^2) as a percent (0.8 means we are 80% 
+        // confident in our line of best fit and the accuracity of our projections)
         var y = []
         this.original.forEach(element => {
             y.push(element[1])
@@ -63,11 +69,21 @@ class LinearModel {
         return 1 - (squared_error_regr/squared_error_y_mean)
     }
 
+    project_r_squared(year: number, diff: number):number[] {
+        // This projects forward the line of best fit +- the confidence
+        let mod = 1-this.r_squared
+        let yp = this.project(year)[1] * (1 + mod * diff)
+        let ym = this.project(year)[1] - (this.project(year)[1] * mod * diff)
+        return [year, yp, ym]
+    }
+
     project(num: number): number[] {
+        // This projects forward the line of best fit
         return [num, this.slope * num + this.intercept]
     }
 
     linear_regression() {
+        // This generates our slope + intercept, used in line of best fit, and r^2
         var x = []
         var y = []
         this.original.forEach(element => {

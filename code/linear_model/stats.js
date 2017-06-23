@@ -5,6 +5,7 @@ var LinearModel = (function () {
         this.r_squared = this.coefficient_of_determination();
     }
     LinearModel.prototype._sum = function (arr) {
+        // Sums an array
         var num = 0;
         arr.forEach(function (element) {
             num += element;
@@ -13,6 +14,7 @@ var LinearModel = (function () {
     };
     LinearModel.prototype.generate_lobf = function () {
         var _this = this;
+        // generates line of best fit
         var out = [];
         this.original.forEach(function (element) {
             var y = _this.slope * element[0] + _this.intercept;
@@ -21,6 +23,7 @@ var LinearModel = (function () {
         return out;
     };
     LinearModel.prototype.squared_error = function (ys_orig, ys_line) {
+        // determines the difference or 'error' from our line of best fit, compaired to the original data
         var out = [];
         for (var x = 0; x < ys_orig.length; x++) {
             out.push(Math.pow((ys_line[x] - ys_orig[x]), 2));
@@ -28,6 +31,7 @@ var LinearModel = (function () {
         return this._sum(out);
     };
     LinearModel.prototype._mean = function (arr) {
+        // Returns the mean of an array
         var out = 0;
         arr.forEach(function (element) {
             out += element;
@@ -36,6 +40,8 @@ var LinearModel = (function () {
     };
     LinearModel.prototype.coefficient_of_determination = function () {
         var _this = this;
+        // This determins our confidence (r^2) as a percent (0.8 means we are 80% 
+        // confident in our line of best fit and the accuracity of our projections)
         var y = [];
         this.original.forEach(function (element) {
             y.push(element[1]);
@@ -53,10 +59,19 @@ var LinearModel = (function () {
         var squared_error_y_mean = this.squared_error(y, y_mean_line);
         return 1 - (squared_error_regr / squared_error_y_mean);
     };
+    LinearModel.prototype.project_r_squared = function (year, diff) {
+        // This projects forward the line of best fit +- the confidence
+        var mod = 1 - this.r_squared;
+        var yp = this.project(year)[1] * (1 + mod * diff);
+        var ym = this.project(year)[1] - (this.project(year)[1] * mod * diff);
+        return [year, yp, ym];
+    };
     LinearModel.prototype.project = function (num) {
+        // This projects forward the line of best fit
         return [num, this.slope * num + this.intercept];
     };
     LinearModel.prototype.linear_regression = function () {
+        // This generates our slope + intercept, used in line of best fit, and r^2
         var x = [];
         var y = [];
         this.original.forEach(function (element) {

@@ -25,10 +25,6 @@
         // linearmodel.slope = linearmodel.slope + 2.  Please execute before hitting generate_lobf() or project()
         var line_of_best_fit = linearmodel.generate_lobf() // returns the same format [[year, value], ... ]
 
-        // Ok, that works, but lets project a year going forward: 
-
-        // If we wanted to do 5 years forward, a simple for loop would do the trick, the project() function is a very simple math eq
-
         // Lets format the data for google!  From here below, is just a sample, for visualization
         out = [];
         out.push(["Year", "Actual", "Line of Best Fit", "Projection+", "Projection-"])
@@ -37,22 +33,23 @@
         }
 
         // for projection
+
+        // This just connects it to the previous year, not needed, but makes it look nicer
         out[out.length -1][3] = out[out.length -1][2]
         out[out.length -1][4] = out[out.length -1][2]
-        var mod = 1- linearmodel.r_squared
-        y1p = linearmodel.project(2014)[1] * (1 + mod)
-        y2p = linearmodel.project(2015)[1] * (1 + mod * 2)
-        y1m = linearmodel.project(2014)[1] - (linearmodel.project(2014)[1] * mod)
-        y2m = linearmodel.project(2015)[1] - (linearmodel.project(2014)[1] * mod * 2)
 
-        out.push(["2014", null, null, y1p, y1m])
-        out.push(["2015", null, null, y2p, y2m])
-        console.log(out)
+        // Grab 2 years worth of data
+        y1 = linearmodel.project_r_squared(2014, 1) // Year, and number of years between this and last known good value
+        y2 = linearmodel.project_r_squared(2015, 2) // 2 in this case means, we are projecting 2 years out.
+        out.push(["2014", null, null, y1[1], y1[2]]) // Add the year 1 projections to the chart!
+        out.push(["2015", null, null, y2[1], y2[2]]) // Add year 2 projections
+        // end projection
+
         var data = google.visualization.arrayToDataTable(out)
 
         var options = {
           title: 'Linear Regression',
-          curveType: 'function',
+        //   curveType: 'function',
           legend: { position: 'bottom' },
           vAxis: {minValue: 0}
         };

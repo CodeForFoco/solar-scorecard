@@ -15,15 +15,28 @@ To 'project' that line forward, you can use:
 
 `line_of_best_fit.push(point)`
 
-If you need access to the slope or intercept:
+If you need access to the slope or intercept or r squared:
 
 ` var slope = linearmodel.slope`
 
 ` var intercept = linearmodel.intercept`
 
+` var r_squared = linearmodel.r_squared`
+
+### How to use for projections:
+
+linearmodel.project_r_squared(year, number_of_years_from_last_known_year)
+
+`y1 = linearmodel.project_r_squared(2013, 1)`
+
+Above will return `[2013, highest_value, lowest_value]`
+
+This is different than just `.project(year)` because, unlike project, it gives you a range the 
+data should fall in.
+
 ### How to make changes and compile:
 
-Make sure you've installed typescript (npm install -g typescript)
+Make sure you've installed typescript (`npm install -g typescript`)
 
 `tsc stats.ts --target es5`
 
