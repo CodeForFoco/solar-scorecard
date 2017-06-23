@@ -6,6 +6,10 @@
         Please Check the page source
 
     <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    <hr>
+    Slope: <span id="show_slope"></span><br>
+    Intercept: <span id="show_intercept"></span><br>
+    R^2 / Confidence: <span id="show_r"></span><br>
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -57,6 +61,11 @@
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
         chart.draw(data, options);
+
+        document.getElementById('show_slope').innerHTML = linearmodel.slope;
+        document.getElementById('show_intercept').innerHTML = linearmodel.intercept;
+        document.getElementById('show_r').innerHTML = (linearmodel.r_squared * 100) + "%";
+
       }
     </script>
 
