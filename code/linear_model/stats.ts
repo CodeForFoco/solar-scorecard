@@ -17,7 +17,7 @@ class LinearModel {
         return num
     }
 
-    generate_lobf() {
+    generate_lobf(): number[] {
         // generates line of best fit
         let out = []
         this.original.forEach(element => {
@@ -45,7 +45,7 @@ class LinearModel {
         return out / arr.length
     }
 
-    coefficient_of_determination() {
+    coefficient_of_determination():number {
         // This determins our confidence (r^2) as a percent (0.8 means we are 80% 
         // confident in our line of best fit and the accuracity of our projections)
         var y = []
