@@ -1,10 +1,20 @@
-var LinearModel = (function () {
-    function LinearModel(original) {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var LinearModel2d = (function () {
+    function LinearModel2d(original) {
         this.original = original;
         this.linear_regression();
         this.r_squared = this.coefficient_of_determination();
     }
-    LinearModel.prototype._sum = function (arr) {
+    LinearModel2d.prototype._sum = function (arr) {
         // Sums an array
         var num = 0;
         arr.forEach(function (element) {
@@ -12,7 +22,7 @@ var LinearModel = (function () {
         });
         return num;
     };
-    LinearModel.prototype.generate_lobf = function () {
+    LinearModel2d.prototype.generate_lobf = function () {
         var _this = this;
         // generates line of best fit
         var out = [];
@@ -22,7 +32,7 @@ var LinearModel = (function () {
         });
         return out;
     };
-    LinearModel.prototype.squared_error = function (ys_orig, ys_line) {
+    LinearModel2d.prototype.squared_error = function (ys_orig, ys_line) {
         // determines the difference or 'error' from our line of best fit, compaired to the original data
         var out = [];
         for (var x = 0; x < ys_orig.length; x++) {
@@ -30,7 +40,7 @@ var LinearModel = (function () {
         }
         return this._sum(out);
     };
-    LinearModel.prototype._mean = function (arr) {
+    LinearModel2d.prototype._mean = function (arr) {
         // Returns the mean of an array
         var out = 0;
         arr.forEach(function (element) {
@@ -38,7 +48,7 @@ var LinearModel = (function () {
         });
         return out / arr.length;
     };
-    LinearModel.prototype.coefficient_of_determination = function () {
+    LinearModel2d.prototype.coefficient_of_determination = function () {
         var _this = this;
         // This determins our confidence (r^2) as a percent (0.8 means we are 80% 
         // confident in our line of best fit and the accuracity of our projections)
@@ -59,18 +69,25 @@ var LinearModel = (function () {
         var squared_error_y_mean = this.squared_error(y, y_mean_line);
         return 1 - (squared_error_regr / squared_error_y_mean);
     };
-    LinearModel.prototype.project_r_squared = function (year, diff) {
+    LinearModel2d.prototype.project_r_squared = function (year, diff) {
         // This projects forward the line of best fit +- the confidence
         var mod = 1 - this.r_squared;
         var yp = this.project(year)[1] * (1 + mod * diff);
         var ym = this.project(year)[1] - (this.project(year)[1] * mod * diff);
         return [year, yp, ym];
     };
-    LinearModel.prototype.project = function (num) {
+    LinearModel2d.prototype.project = function (num) {
         // This projects forward the line of best fit
         return [num, this.slope * num + this.intercept];
     };
-    LinearModel.prototype.linear_regression = function () {
+    LinearModel2d.prototype.project_func = function () {
+        var slope = this.slope;
+        var intercept = this.intercept;
+        return function (x) {
+            return slope * x + intercept;
+        };
+    };
+    LinearModel2d.prototype.linear_regression = function () {
         // This generates our slope + intercept, used in line of best fit, and r^2
         var x = [];
         var y = [];
@@ -96,5 +113,23 @@ var LinearModel = (function () {
         this.slope = (sum_of_products - (sum_x * sum_y) / length) / (sum_x_squared - ((Math.pow(sum_x, 2)) / length));
         this.intercept = (sum_y - this.slope * sum_x) / length;
     };
-    return LinearModel;
+    return LinearModel2d;
 }());
+var LinearModel1d = (function (_super) {
+    __extends(LinearModel1d, _super);
+    function LinearModel1d(original1D) {
+        var _this = this;
+        var o = [];
+        var i = 0;
+        original1D.forEach(function (element) {
+            o.push([i, element]);
+            i += 1;
+        });
+        _this = _super.call(this, o) || this;
+        _this.original1D = original1D;
+        _this.linear_regression();
+        _this.r_squared = _this.coefficient_of_determination();
+        return _this;
+    }
+    return LinearModel1d;
+}(LinearModel2d));

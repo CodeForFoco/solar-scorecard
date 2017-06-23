@@ -1,4 +1,4 @@
-class LinearModel {
+class LinearModel2d {
     original: number[][];
     slope: number;
     intercept: number;
@@ -82,6 +82,15 @@ class LinearModel {
         return [num, this.slope * num + this.intercept]
     }
 
+    project_func() {
+        var slope = this.slope
+        var intercept = this.intercept
+
+        return function(x: number) {
+            return slope * x + intercept
+        }
+    }
+
     linear_regression() {
         // This generates our slope + intercept, used in line of best fit, and r^2
         var x = []
@@ -109,5 +118,22 @@ class LinearModel {
         });
         this.slope = (sum_of_products - (sum_x * sum_y) / length) / (sum_x_squared - ((sum_x ** 2) / length))
         this.intercept = (sum_y - this.slope * sum_x) / length
+    }
+}
+
+
+class LinearModel1d extends LinearModel2d {
+    original1D: number[];
+    constructor(original1D: number[]) {
+        let o = []
+        let i = 0;
+        original1D.forEach(element => {
+            o.push([i, element])
+            i += 1
+        });
+        super(o);
+        this.original1D = original1D;
+        this.linear_regression();
+        this.r_squared = this.coefficient_of_determination();
     }
 }

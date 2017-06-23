@@ -5,15 +5,24 @@ Just open the [sample.html](sample.html) page!
 
 ### How to use:
 
-`linearmodel = new LinearModel([ [2010, 50],[2011, 55],[2012, 60],[2012, 65] ])`
+    linearmodel = new LinearModel([ [2010, 50],[2011, 55],[2012, 60],[2012, 65] ])
 
-`line_of_best_fit = linearmodel.generate_lobf() // the result is a line of best fit for every year in the original list`
+    line_of_best_fit = linearmodel.generate_lobf() // the result is a line of best fit for every year in the original list
 
 To 'project' that line forward, you can use:
 
-`point = linearmodel.project(2015) \\ point will be [2015, projection]`
+    point = linearmodel.project(2015) \\ point will be [2015, projection]
 
-`line_of_best_fit.push(point)`
+    line_of_best_fit.push(point)
+
+Based on request from @dgendill:
+
+    projection = linearmodel.project_func() // Returns based on lobf
+
+    for (var x = 0; x < 20; x++) {
+        console.log( projection(x) )
+    }
+
 
 If you need access to the slope or intercept or r squared:
 
