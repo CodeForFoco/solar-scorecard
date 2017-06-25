@@ -5,9 +5,10 @@
   "description": "Solar Scorecard project: track Fort Collins renewable/solar energy goals.",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server -f ./code/**/*.html ./code/**/*.css ./code/**/*.js --open external --startPath ./code/projections.html",
+    "browser-sync": "browser-sync start --server -f ./code/**/*.html ./code/**/*.css ./code/**/*.js --open external --startPath ./code/projections.html",
     "linear-compile": "tsc ./code/linear_model/stats.ts --target es5",
     "chart-compile": "tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
+    "start": "npm run chart-compile && npm run browser-sync",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
