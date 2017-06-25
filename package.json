@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "browser-sync": "browser-sync start --server -f ./code/**/*.html ./code/**/*.css ./code/**/*.js --open external --startPath ./code/projections.html",
-    "linear-compile": "tsc ./code/linear_model/stats.ts --target es5",
-    "chart-compile": "tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
-    "start": "npm run chart-compile && npm run browser-sync",
+    "tsc-compile:linear": "tsc ./code/linear_model/stats.ts --target es5",
+    "tsc-compile:chart": "tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
+    "tsc-compile": "npm run tsc-compile:linear && npm run tsc-compile:chart",
+    "start": "parallelshell 'npm run tsc-compile -- -w' 'npm run browser-sync'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,7 +29,8 @@
     "d3": "^4.9.1",
     "d3-axis": "^1.0.7",
     "d3-scale": "^1.0.6",
-    "d3-selection": "^1.1.0"
+    "d3-selection": "^1.1.0",
+    "parallelshell": "3.0.1"
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",
