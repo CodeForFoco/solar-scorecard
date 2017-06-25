@@ -10,6 +10,7 @@
   "scripts": {
     "start": "browser-sync start --server -f ./code/**/*.html ./code/**/*.css ./code/**/*.js --open external --startPath ./code/projections.html",
     "linear-compile": "./node_modules/typescript/bin/tsc ./code/linear_model/stats.ts --target es5",
+    "chart-compile": "./node_modules/typescript/bin/tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
