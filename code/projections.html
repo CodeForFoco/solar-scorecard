@@ -6,6 +6,7 @@
   <script type="text/javascript" src="js/d3/d3.min.js"></script>
   <script type="text/javascript" src="js/d3/components/d3-axis.min.js"></script>
   <script type="text/javascript" src="js/d3/components/d3-time-format.min.js"></script>
+  <script type="text/javascript" src="js/BaseChart.js"></script>
   <script type="text/javascript" src="js/util.js"></script>
   <script type="text/javascript" src="js/projection.js"></script>
   <script type="text/javascript">
@@ -13,25 +14,20 @@
       var data1 = util.generateDummyData();
       var data2 = util.generateDummyData();
 
-      var chart1 = d3.projectionChart()
-        .data(data1)
-        .width(500)
-        .height(500)
+      var chart = new BaseChart(
+        drawProjectionChart,
+        updateProjectionChart
+      );
+      chart.setData(data1);
 
-      var chart2 = d3.projectionChart()
-        .data(data2)
-        .width(200)
-        .height(200)
+      var chart1D3 = d3.select(".chart1").call(chart.d3Draw);
 
-      var chart1D3 = d3.select(".chart1").call(chart1);
-      var chart2D3 = d3.select(".chart2").call(chart2);
-
-      flexableSize(chart1D3, chart1);
-      flexableSize(chart2D3, chart2);
+      flexableSize(chart1D3, chart);
 
       function flexableSize(d3Chart, projectionChart) {
         d3Chart.each(function(element) {
-          projectionChart.width(
+          console.log('a')
+          chart.setWidth(
             this.getBoundingClientRect().width
           );
         });
@@ -40,14 +36,14 @@
       window.addEventListener('resize', util.throttle(function() {
         // On window resize, rerender the chart so it fills
         // it's parent element.
-        flexableSize(chart1D3, chart1);
-        flexableSize(chart2D3, chart2);
+        flexableSize(chart1D3, chart);
 
       }), 80);
     })
 
   </script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
 
 </head>
 <body>
