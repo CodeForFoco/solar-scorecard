@@ -40,10 +40,8 @@ class BaseChart {
         // Run the draw function in the
         // d3 context
         draw.bind(this)(self.getContext())
-
       });
     }
-
   }
 
   update() {
