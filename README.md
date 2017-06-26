@@ -50,13 +50,16 @@ Using the [PVWatts Calculator](http://pvwatts.nrel.gov/pvwatts.php) we can calcu
 1. Check out the [3D Version 4 API](https://github.com/d3/d3/blob/master/API.md#scales-d3-scale) and [3D Tutorial](https://github.com/d3/d3/wiki/Tutorials) to get started with D3.
 
 ## Contributing
-We welcome new contributors.  Be sure to check out guide on [contributing][contributing], which includes instructions on how to fork, clone, branch, commit, pull request and sync your fork.
+We welcome new contributors. Be sure to check out guide on [contributing][contributing], which includes instructions on how to fork, clone, branch, commit, pull request and sync your fork.
 
 Not sure where to start? Look for [open issues][githubissue] on GitHub, or message the team on [our Slack site][slack]. If you aren't on our Slack, [click here for an invite][slackinvite].
 
 TL;DR Contribution Workflow:
 
 1. [Fork][fork] this repository and Clone your fork locally.
+1. This project has a handful of `NodeJS` dependencies, so if you do not already have it then install the [latest stable version][node].
+1. Run `npm install` in your project folder.
+1. If you want files to automatically compile and reload your browser, run `npm start`.
 1. Checkout a new branch on which to make your changes.
 1. Make edits. Try to match existing coding style.
 1. Test your changes.
@@ -72,7 +75,7 @@ This repo is structured as follows:
 ├── code
     ├── js                            Front end javascript code
     ├── css                           Front end styles
-    └── ...
+    └── scss                          Compiles to CSS
 └── data
     ├── data-sources                  Utilities around obtaining data
     ├── schema                        Data models
@@ -93,3 +96,4 @@ MIT, see [LICENSE](/LICENSE) for full license.
 [githubissue]: https://github.com/CodeForFoco/solar-scorecard/issues
 [newissue]: https://github.com/CodeForFoco/solar-scorecard/issues/new
 [pullrequest]: https://github.com/CodeForFoco/solar-scorecard/pulls
+[node]: https://nodejs.org/en/
