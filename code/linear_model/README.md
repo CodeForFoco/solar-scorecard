@@ -74,10 +74,6 @@ Above will return `[2013, highest_value, lowest_value]`
 This is different than just `.project(year)` because, unlike project, it gives you a range the 
 data should fall in.
 
-=======
->>>>>>> bae73ad... Added Linear Regression take 2 (#12)
-=======
->>>>>>> upstream/master
 ### How to make changes and compile:
 
 Make sure you've installed typescript (`npm install -g typescript`)
