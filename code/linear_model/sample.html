@@ -21,19 +21,36 @@
       function drawChart() {
 
         // Original reps the data you'd get from the city, using [year, value] construct
-        var original = [ [2010, 50],[2011, 55],[2012, 54],[2013, 60] ]
-        linearmodel = new LinearModel2d(original)
+
+        // var original = [ [2010, 50],[2011, 55],[2012, 54],[2013, 60] ]
+        // linearmodel = new LinearModel2d(original)
+        // OR
+        var original = [ 50, 55, 54, 60 ]
+        linearmodel = new LinearModel1d(original)
+
+
+
         // linearmodel.slope  is the slope
         // linearmodel.intercept  is the intercept
-        // if you want to modify the slope or intercept, you can as follows:
-        // linearmodel.slope = linearmodel.slope + 2.  Please execute before hitting generate_lobf() or project()
+
+        // linearmodel.original == a 2d array
+
         var line_of_best_fit = linearmodel.generate_lobf() // returns the same format [[year, value], ... ]
 
-        // Lets format the data for google!  From here below, is just a sample, for visualization
+        // Lets format the data for google!
         out = [];
         out.push(["Year", "Actual", "Line of Best Fit", "Projection+", "Projection-"])
-        for (var x = 0; x < original.length; x++) {
-            out.push( [original[x][0] +"", original[x][1], line_of_best_fit[x][1], null, null] )
+        for (var x = 0; x < linearmodel.original.length; x++) {
+            out.push( [linearmodel.original[x][0] +"", linearmodel.original[x][1], line_of_best_fit[x][1], null, null] )
+        }
+
+        // Based on request from @dgendill:
+        var last = linearmodel.original[linearmodel.original.length -1][0]
+
+        projection = linearmodel.project_func() // Returns based on lobf
+
+        for (var x = last; x < last+20; x++) {
+            console.log( projection(x) )
         }
 
         // for projection
@@ -43,17 +60,17 @@
         out[out.length -1][4] = out[out.length -1][2]
 
         // Grab 2 years worth of data
-        y1 = linearmodel.project_r_squared(2014, 1) // Year, and number of years between this and last known good value
-        y2 = linearmodel.project_r_squared(2015, 2) // 2 in this case means, we are projecting 2 years out.
-        out.push(["2014", null, null, y1[1], y1[2]]) // Add the year 1 projections to the chart!
-        out.push(["2015", null, null, y2[1], y2[2]]) // Add year 2 projections
+
+        y1 = linearmodel.project_r_squared(last+1, 1) // Year, and number of years between this and last known good value
+        y2 = linearmodel.project_r_squared(last+2, 2) // 2 in this case means, we are projecting 2 years out.
+        out.push([(last+1) + "", null, null, y1[1], y1[2]]) // Add the year 1 projections to the chart!
+        out.push([(last+2) + "", null, null, y2[1], y2[2]]) // Add year 2 projections
         // end projection
 
         var data = google.visualization.arrayToDataTable(out)
 
         var options = {
           title: 'Linear Regression',
-        //   curveType: 'function',
           legend: { position: 'bottom' },
           vAxis: {minValue: 0}
         };

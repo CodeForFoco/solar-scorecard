@@ -46,8 +46,6 @@ class LinearModel2d {
     }
 
     coefficient_of_determination():number {
-        // This determins our confidence (r^2) as a percent (0.8 means we are 80% 
-        // confident in our line of best fit and the accuracity of our projections)
         var y = []
         this.original.forEach(element => {
             y.push(element[1])
@@ -121,7 +119,6 @@ class LinearModel2d {
     }
 }
 
-
 class LinearModel1d extends LinearModel2d {
     original1D: number[];
     constructor(original1D: number[]) {
@@ -135,5 +132,17 @@ class LinearModel1d extends LinearModel2d {
         this.original1D = original1D;
         this.linear_regression();
         this.r_squared = this.coefficient_of_determination();
+    }
+}
+
+function line_generator() {
+    var last = 0
+    // We don't need or want crazy jumps up or down
+    var small_inc = [-0.1, 0.0, 0.1, 0.2] // this reps percentage change
+    return function():number {
+        let newest = (last + 1) * (1+small_inc[Math.floor(Math.random() * small_inc.length)])
+        newest = Math.round(newest)
+        last = newest
+        return newest
     }
 }
