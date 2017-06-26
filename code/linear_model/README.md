@@ -58,8 +58,6 @@ Above will return `[2013, highest_value, lowest_value]`
 This is different than just `.project(year)` because, unlike project, it gives you a range the 
 data should fall in.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     var r_squared = linearmodel.r_squared
 
 ### How to use for projections:
