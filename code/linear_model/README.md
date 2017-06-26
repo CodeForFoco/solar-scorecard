@@ -59,6 +59,7 @@ This is different than just `.project(year)` because, unlike project, it gives y
 data should fall in.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     var r_squared = linearmodel.r_squared
 
 ### How to use for projections:
@@ -77,6 +78,8 @@ data should fall in.
 
 =======
 >>>>>>> bae73ad... Added Linear Regression take 2 (#12)
+=======
+>>>>>>> upstream/master
 ### How to make changes and compile:
 
 Make sure you've installed typescript (`npm install -g typescript`)
