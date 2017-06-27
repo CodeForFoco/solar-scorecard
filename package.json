@@ -32,15 +32,13 @@
   },
   "homepage": "https://github.com/CodeForFoco/solar-scorecard#readme",
   "dependencies": {
+    "browser-sync": "^2.18.12",
     "d3": "^4.9.1",
     "d3-axis": "^1.0.7",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "node-sass": "4.5.3",
-    "parallelshell": "3.0.1"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.18.12",
+    "parallelshell": "3.0.1",
     "typescript": "^2.3.4"
   }
 }
