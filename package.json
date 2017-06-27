@@ -8,7 +8,7 @@
   "description": "Solar Scorecard project: track Fort Collins renewable/solar energy goals.",
   "main": "index.js",
   "scripts": {
-    "browser-sync": "browser-sync start --server --files=$npm_package_config_bsync --open external --startPath ./code/projections.html",
+    "browser-sync": "browser-sync start --server --directory --files=$npm_package_config_bsync --open external --startPath ./code",
     "sass": "node-sass -q --source-map true code/scss/main.scss code/css/main.css",
     "tsc-compile:linear": "tsc ./code/linear_model/stats.ts --target es5",
     "tsc-compile:chart": "tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
