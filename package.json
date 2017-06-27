@@ -8,13 +8,13 @@
   "description": "Solar Scorecard project: track Fort Collins renewable/solar energy goals.",
   "main": "index.js",
   "scripts": {
-    "browser-sync": "browser-sync start --server --files=$npm_package_config_bsync --open external --startPath ./code/projections.html",
+    "browser-sync": "browser-sync start --server --directory --files=$npm_package_config_bsync --open external --startPath ./code",
     "sass": "node-sass -q --source-map true code/scss/main.scss code/css/main.css",
     "tsc-compile:linear": "tsc ./code/linear_model/stats.ts --target es5",
     "tsc-compile:chart": "tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
     "tsc-compile": "npm run tsc-compile:linear && npm run tsc-compile:chart",
     "build": "npm run sass && npm run tsc-compile",
-    "start": "npm build && parallelshell 'npm run tsc-compile:chart -- -w' 'npm run sass -- -w' 'npm run browser-sync'",
+    "start": "npm run build && parallelshell 'npm run tsc-compile:chart -- -w' 'npm run sass -- -w' 'npm run browser-sync'",
     "postinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,15 +32,13 @@
   },
   "homepage": "https://github.com/CodeForFoco/solar-scorecard#readme",
   "dependencies": {
+    "browser-sync": "^2.18.12",
     "d3": "^4.9.1",
     "d3-axis": "^1.0.7",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "node-sass": "4.5.3",
-    "parallelshell": "3.0.1"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.18.12",
+    "parallelshell": "3.0.1",
     "typescript": "^2.3.4"
   }
 }
