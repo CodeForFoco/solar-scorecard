@@ -46,12 +46,12 @@ util.randomIntGen = function randomIntGen(a, b) {
     return Math.round(min + (Math.random() * (max - min)))
   }
 }
-// { all : Array DataPoint, past : Array DataPoint, currentFuture : Array DataPoint }
+// { past : Array DataPoint, future : Array DataPoint }
 util.generateDummyData = function generateDummyData() {
 
   // Date -> Date -> Boolean
   function yearBefore(d1, d2) {
-    return d1.getFullYear() <= d2.getFullYear();
+    return d1.getFullYear() < d2.getFullYear();
   }
 
   var allYears = [];
@@ -62,7 +62,7 @@ util.generateDummyData = function generateDummyData() {
   var data = allYears.map(function(date, index) {
     return {
       date : date,
-      megawatts : util.randomIntGen(index * 3, (index * 3)+15)()
+      value : util.randomIntGen(index * 3, (index * 3)+15)()
     }
   })
 
@@ -70,16 +70,22 @@ util.generateDummyData = function generateDummyData() {
     return yearBefore(d.date, new Date())
   })
 
-  var currentFutureData = data.filter(function(d) {
+  var futureData = data.filter(function(d) {
     return !yearBefore(d.date, new Date()) ||
            d.date.getFullYear() == (new Date()).getFullYear();
   });
 
   return {
-    all : data,
     past : pastData,
-    currentFuture : currentFutureData
+    future : futureData
   }
+}
+
+// Connect one series of data with another,
+// by putting the last data point of the first
+// as the first data point of the second.
+util.connectDataTo = function(series1, series2) {
+  return [series1[series1.length-1]].concat(series2);
 }
 
 util.ready = function(domReadyFn) {

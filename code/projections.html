@@ -6,13 +6,51 @@
   <script type="text/javascript" src="js/d3/d3.min.js"></script>
   <script type="text/javascript" src="js/d3/components/d3-axis.min.js"></script>
   <script type="text/javascript" src="js/d3/components/d3-time-format.min.js"></script>
-  <script type="text/javascript" src="js/BaseChart.js"></script>
+  <script type="text/javascript" src="js-compiled/BaseChart.js"></script>
+  <script type="text/javascript" src="js-compiled/Stats.js"></script>
+
   <script type="text/javascript" src="js/util.js"></script>
   <script type="text/javascript" src="js/projection.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
   <script type="text/javascript">
     util.ready(function() {
       var data1 = util.generateDummyData();
-      var data2 = util.generateDummyData();
+
+      var linearmodel = new LinearModel2d(data1.past.map(function(point) {
+        return [point.date.getFullYear(), point.value];
+      }));
+
+      var bestFit = linearmodel.generate_lobf();
+
+      data1.futurePlus = util.connectDataTo(
+        data1.past,
+        data1.future.map(function(point) {
+          var year = point.date.getFullYear();
+          // console.log(year, year-2017+1);
+          var proj = linearmodel.project_r_squared(year, year-2017+1);
+          console.log(proj[0], proj[1], proj[2])
+          return {
+            date : point.date,
+            value : proj[1]
+          }
+        })
+      );
+
+      data1.futureMinus = util.connectDataTo(
+        data1.past,
+        data1.future.map(function(point) {
+          var year = point.date.getFullYear();
+          var proj = linearmodel.project_r_squared(year, year-2017+1);
+          return {
+            date : point.date,
+            value : proj[2]
+          }
+        })
+      );
+
+      data1.all = data1.past
+        .concat(data1.futurePlus)
+        .concat(data1.futureMinus)
 
       var chart = new BaseChart(
         drawProjectionChart,
@@ -42,19 +80,14 @@
     })
 
   </script>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css"/>
-  <link rel="stylesheet" type="text/css" href="css/main.css"/>
 
 </head>
 <body>
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-9">
-      <div style="border:1px solid black" class="chart1"></div>
-    </div>
-    <div class="col-lg-3">
-      <div style="border:1px solid black" class="chart2"></div>
+    <div class="col-lg-12">
+      <div class="chart1"></div>
     </div>
   </div>
 </div>
