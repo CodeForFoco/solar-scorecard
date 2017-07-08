@@ -10,8 +10,8 @@
   "scripts": {
     "browser-sync": "browser-sync start --server --directory --files=$npm_package_config_bsync --open external --startPath ./code",
     "sass": "node-sass -q --source-map true code/scss/main.scss code/css/main.css",
-    "tsc-compile:linear": "tsc ./code/linear_model/stats.ts --target es5",
-    "tsc-compile:chart": "tsc --outDir ./code/js ./code/ts-src/BaseChart.ts --target es5",
+    "tsc-compile:linear": "tsc --outDir ./code/js-compiled ./code/linear_model/Stats.ts --target es5",
+    "tsc-compile:chart": "tsc --outDir ./code/js-compiled ./code/ts-src/BaseChart.ts --target es5",
     "tsc-compile": "npm run tsc-compile:linear && npm run tsc-compile:chart",
     "build": "npm run sass && npm run tsc-compile",
     "start": "npm run build && parallelshell 'npm run tsc-compile:chart -- -w' 'npm run sass -- -w' 'npm run browser-sync'",
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/CodeForFoco/solar-scorecard#readme",
   "dependencies": {
     "browser-sync": "^2.18.12",
+    "chart.js": "^2.6.0",
     "d3": "^4.9.1",
     "d3-axis": "^1.0.7",
     "d3-scale": "^1.0.6",
