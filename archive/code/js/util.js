@@ -46,12 +46,12 @@ util.randomIntGen = function randomIntGen(a, b) {
     return Math.round(min + (Math.random() * (max - min)))
   }
 }
-// { all : Array DataPoint, past : Array DataPoint, currentFuture : Array DataPoint }
+// { past : Array DataPoint, future : Array DataPoint }
 util.generateDummyData = function generateDummyData() {
 
   // Date -> Date -> Boolean
   function yearBefore(d1, d2) {
-    return d1.getFullYear() <= d2.getFullYear();
+    return d1.getFullYear() < d2.getFullYear();
   }
 
   var allYears = [];
@@ -59,10 +59,11 @@ util.generateDummyData = function generateDummyData() {
     allYears.push(new Date(year + "/01/01"));
   }
 
+  var generateData = line_generator();
   var data = allYears.map(function(date, index) {
     return {
       date : date,
-      megawatts : util.randomIntGen(index * 3, (index * 3)+15)()
+      value : generateData()
     }
   })
 
@@ -70,18 +71,66 @@ util.generateDummyData = function generateDummyData() {
     return yearBefore(d.date, new Date())
   })
 
-  var currentFutureData = data.filter(function(d) {
+  var futureData = data.filter(function(d) {
     return !yearBefore(d.date, new Date()) ||
            d.date.getFullYear() == (new Date()).getFullYear();
   });
 
   return {
-    all : data,
     past : pastData,
-    currentFuture : currentFutureData
+    future : futureData
   }
+}
+
+// Connect one series of data with another,
+// by putting the last data point of the first
+// as the first data point of the second.
+util.connectDataTo = function(series1, series2) {
+  return [series1[series1.length-1]].concat(series2);
 }
 
 util.ready = function(domReadyFn) {
   document.addEventListener('DOMContentLoaded', domReadyFn);
+}
+
+util.projectionDummyData = function() {
+
+  var data1 = util.generateDummyData();
+
+  var linearmodel = new LinearModel2d(data1.past.map(function(point) {
+    return [point.date.getFullYear(), point.value];
+  }));
+
+  data1.futurePlus = util.connectDataTo(
+    data1.past,
+    data1.future.map(function(point) {
+      var year = point.date.getFullYear();
+      // console.log(year, year-2017+1);
+      var proj = linearmodel.project_r_squared(year, year-2017+1);
+      console.log(proj[0], proj[1], proj[2])
+      return {
+        date : point.date,
+        value : proj[1]
+      }
+    })
+  );
+
+  data1.futureMinus = util.connectDataTo(
+    data1.past,
+    data1.future.map(function(point) {
+      var year = point.date.getFullYear();
+      var proj = linearmodel.project_r_squared(year, year-2017+1);
+      return {
+        date : point.date,
+        value : proj[2]
+      }
+    })
+  );
+
+  data1.all = data1.past.concat(data1.future);
+
+    // .concat(data1.futurePlus)
+    // .concat(data1.futureMinus)
+
+  return data1;
 }

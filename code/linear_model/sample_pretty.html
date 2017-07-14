@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <title>Pretty Version</title>
+    </head>
+    <body>
+
+        <div id="myDiv" style="width:600px;height:600px;"></div>
+        <hr>
+        Slope: <span id="show_slope"></span><br>
+        Intercept: <span id="show_intercept"></span><br>
+        R<sup>2</sup> aka Coefficient of Determination: <span id="show_r"></span><br>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="stats.js"></script>
+<script>
+
+// I grab the last item a lot...
+Array.prototype.last = function() {
+    return this[this.length -1]
+};
+
+// simple rounding function, just used for formating
+function round(value, exp) {
+  if (typeof exp === 'undefined' || +exp === 0)
+    return Math.round(value);
+
+  value = +value;
+  exp = +exp;
+
+  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+    return NaN;
+
+  // Shift
+  value = value.toString().split('e');
+  value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+
+  // Shift back
+  value = value.toString().split('e');
+  return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+}
+
+// SWITCH ME Or Add Elements!
+
+// var original = [ [2010, 50],[2011, 55],[2012, 54],[2013, 60] ]
+// linearmodel = new LinearModel2d(original)
+
+// Use a rng generator - it doesn't 'move' quickly, and trends upwards (usually)
+original1d = []
+r = line_generator() // FROM stats.js
+for (var index = 1; index < 20; index++) {
+    original1d.push(r())
+}
+
+// var original1d = [ 50, 55, 54, 60 ]
+linearmodel = new LinearModel1d(original1d)
+
+var x_org = [];
+var y_org = [];
+
+linearmodel.original.forEach(function(element) {
+    x_org.push(element[0]);
+    y_org.push(element[1]);
+}, this);
+
+last_year = x_org.last()
+
+var lobf = linearmodel.generate_lobf()
+lobf.push(linearmodel.project(last_year+1))
+lobf.push(linearmodel.project(last_year+2))
+lobf.push(linearmodel.project(last_year+3))
+
+x_lobf = []
+y_lobf = []
+lobf.forEach(function(element) {
+    x_lobf.push(element[0])
+    y_lobf.push(element[1])
+}, this);
+
+var trace1 = {
+    x: x_lobf,
+    y: y_lobf,
+    type: 'scatter',
+    name: "Line of Best Fit",
+    line: {
+        dash: 'dot',
+        width: 4
+    },
+    marker: {
+        color: 'rgb(200, 200, 200)'
+    }
+}
+
+
+var trace2 = {
+    x: x_org,
+    y: y_org,
+    type: 'scatter',
+    name: "Current",
+    marker: {
+        color: 'rgb(37,52,148)'
+    }
+};
+
+y1 = linearmodel.project_r_squared(last_year+1, 1)
+y2 = linearmodel.project_r_squared(last_year+2, 2)
+y3 = linearmodel.project_r_squared(last_year+3, 3)
+var x_projection = [last_year, last_year+1, last_year+2, last_year+3]
+y_projection_pos = [y_org.last(), y1[1], y2[1], y3[1]]
+y_projection_neg = [y_org.last(), y1[2], y2[2], y3[2]]
+
+var trace3 = {
+  x: x_projection,
+  y: y_projection_pos,
+  type: 'scatter',
+  showlegend: false,
+  name: "Projection",
+  marker: {
+    color: '#23b7e5'
+  }
+};
+
+
+var trace4 = {
+  x: x_projection,
+  y: y_projection_neg,
+  fill: 'tonexty',
+  type: 'scatter',
+  name: "Projection",
+  marker: {
+    color: '#23b7e5'
+  }
+};
+
+// Determin ymax, incase of downward trend
+var ymax = Math.max(y_org.last(), y_projection_pos.last())
+
+// this basically says, ymax rounded to the nearest 10, plus 10
+ymax = (Math.round((ymax / 10)) * 10) + 10
+
+var layout = {
+  xaxis: {
+      range: [x_org[0]-1, last_year+4]
+  },
+  yaxis: {
+      range: [0, ymax]
+  }
+};
+
+var data = [trace2, trace3, trace4, trace1];
+
+Plotly.newPlot('myDiv', data, layout, {displayModeBar: false});
+
+document.getElementById('show_slope').innerHTML = round(linearmodel.slope,2);
+document.getElementById('show_intercept').innerHTML = round(linearmodel.intercept,2);
+document.getElementById('show_r').innerHTML = round(linearmodel.r_squared * 100, 2) + "%";
+
+</script>
+    </body>
+</html>
