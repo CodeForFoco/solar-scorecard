@@ -72,14 +72,15 @@ This repo is structured as follows:
 ``` text
 ├── LICENSE
 ├── README.md
-├── code
-    ├── js                            Front end javascript code
-    ├── css                           Front end styles
-    └── scss                          Compiles to CSS
-└── data
-    ├── data-sources                  Utilities around obtaining data
-    ├── schema                        Data models
-    └── scripts                       Helper scripts
+├── archive                               Archive of old project code
+    ├── code
+        ├── js                            Front end javascript code
+        ├── css                           Front end styles
+        └── scss                          Compiles to CSS
+    └── data
+        ├── data-sources                  Utilities around obtaining data
+        ├── schema                        Data models
+        └── scripts                       Helper scripts
 ```
 
 ## Bugs / Feedback / Suggestions
