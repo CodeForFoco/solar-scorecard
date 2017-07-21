@@ -1,0 +1,44 @@
+{
+  "name": "solar-scorecard",
+  "config": {
+    "bsync": "./code/**/*.html ./code/**/*.css ./code/**/*.js"
+  },
+  "version": "0.1.0",
+  "private": true,
+  "description": "Solar Scorecard project: track Fort Collins renewable/solar energy goals.",
+  "main": "index.js",
+  "scripts": {
+    "browser-sync": "browser-sync start --server --directory --files=$npm_package_config_bsync --open external --startPath ./code",
+    "sass": "node-sass -q --source-map true code/scss/main.scss code/css/main.css",
+    "tsc-compile:linear": "tsc --outDir ./code/js-compiled ./code/linear_model/Stats.ts --target es5",
+    "tsc-compile": "npm run tsc-compile:linear",
+    "build": "npm run sass && npm run tsc-compile",
+    "start": "npm run build && parallelshell 'npm run tsc-compile -- -w' 'npm run sass -- -w' 'npm run browser-sync'",
+    "postinstall": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeForFoco/solar-scorecard.git"
+  },
+  "author": "Code for Fort Collins",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/CodeForFoco/solar-scorecard/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/CodeForFoco/solar-scorecard/issues"
+  },
+  "homepage": "https://github.com/CodeForFoco/solar-scorecard#readme",
+  "dependencies": {
+    "browser-sync": "^2.18.12",
+    "chart.js": "^2.6.0",
+    "d3": "^4.9.1",
+    "d3-axis": "^1.0.7",
+    "d3-scale": "^1.0.6",
+    "d3-selection": "^1.1.0",
+    "node-sass": "4.5.3",
+    "parallelshell": "3.0.1",
+    "typescript": "^2.3.4"
+  }
+}
