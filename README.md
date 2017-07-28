@@ -1,5 +1,7 @@
 # :sunny: :sunny: Fort Collins Solar Scorecard :sunny: :sunny:
 
+Demo: http://codeforfoco.org/solar-scorecard/stairstep.html
+
 Solar Scorecard project: track Fort Collins renewable/solar energy goals.
 
 ## Goal of Project
@@ -66,6 +68,9 @@ TL;DR Contribution Workflow:
 1. Commit your changes. Push your changes to your fork on GitHub.
 1. Submit a new [pull request][pullrequest] and your changes will be reviewed and merged.
 
+### Publishing
+If you are administrator of the main repository and want to push to the [demo site][gh-demo]: `npm run publish-gh-pages`.
+
 ## Repository Organization
 This repo is structured as follows:
 
@@ -98,3 +103,4 @@ MIT, see [LICENSE](/LICENSE) for full license.
 [newissue]: https://github.com/CodeForFoco/solar-scorecard/issues/new
 [pullrequest]: https://github.com/CodeForFoco/solar-scorecard/pulls
 [node]: https://nodejs.org/en/
+[gh-demo]: http://codeforfoco.org/solar-scorecard/stairstep.html

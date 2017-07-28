@@ -15,6 +15,7 @@
     "build": "npm run sass && npm run tsc-compile",
     "start": "npm run build && parallelshell 'npm run tsc-compile -- -w' 'npm run sass -- -w' 'npm run browser-sync'",
     "postinstall": "npm run build",
+    "publish-gh-pages": "node publish-gh-pages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,6 +38,7 @@
     "d3-axis": "^1.0.7",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
+    "gh-pages": "^1.0.0",
     "node-sass": "4.5.3",
     "parallelshell": "3.0.1",
     "typescript": "^2.3.4"
