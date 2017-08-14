@@ -1,6 +1,6 @@
 # :sunny: :sunny: Fort Collins Solar Scorecard :sunny: :sunny:
 
-Demo: http://codeforfoco.org/solar-scorecard/stairstep.html
+Demo: http://codeforfoco.org/solar-scorecard/
 
 Solar Scorecard project: track Fort Collins renewable/solar energy goals.
 
