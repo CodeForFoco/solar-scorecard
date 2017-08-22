@@ -2,62 +2,25 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Stairstep Chart</title>
-  <script type="text/javascript" src="js/chartjs/Chart.min.js"></script>
-  <script type="text/javascript" src="js-compiled/Stats.js"></script>
-  <script type="text/javascript" src="js/util.js"></script>
-  <script type="text/javascript" src="js/Tabs.js"></script>
-  <script type="text/javascript" src="js/StairstepChart.js"></script>
+  <title>Solar Scorecard</title>
+  <script type="text/javascript" src="dist/SolarScorecard.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main.css">
-
   <script>
-    var demodata = util.toProjectionFormat(util.generateDummyData());
-
-    util.ready(function() {
-
-      Tabs({
-        id : "stairstep-chart-tabs",
-        tabs : [
-          {
-            id : "projections",
-            label : "Projections",
-            callback : function(element) {
-              element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
-
-              StairstepChart({
-                id : "stairstep-chart",
-                data: demodata
-              });
-            }
-          },
-          {
-            id : "ratios",
-            label : "Ratios",
-            callback : function(element) {
-              element.innerHTML='<canvas id="stairstep-chart2" width="600" height="400"></canvas>';
-
-              StairstepChart({
-                id : "stairstep-chart2",
-                data: demodata
-              });
-            }
-          }
-
-        ]
+    SolarScorecard.ready(function() {
+      SolarScorecard.run({
+        selector : "#stairstep-chart-tabs",
+        data : SolarScorecard.projectData(SolarScorecard.boulderData)
       })
-    });
-
+    })
   </script>
-
 </head>
 <body>
 
 <div class="container">
   <div class="row">
     <div class="col-lg-9">
-      <div id="stairstep-chart-tabs">
+      <div id="chart-tabs">
       </div>
-
     </div>
   </div>
 </div>

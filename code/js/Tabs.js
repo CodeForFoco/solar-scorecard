@@ -1,19 +1,30 @@
 /*
 Config Object
-{ id : String,
+{ selector : DomSelector,
   tabs : Array {
     id : String,
     label : String
   }
 }
 */
-function Tabs(config) {
-  var id = config.id;
-  var tabs = config.tabs;
-  var root = document.getElementById(id);
+export default function Tabs(config) {
+  var selector = config.selector;
+
+  var tabs = config.tabs.map(function(tab, index) {
+    tab.id = tab.id || "tab" + index;
+    return tab; 
+  });
+  var root = document.querySelector(selector);
+  if (!root) {
+    throw new Error('Could not find Tab root using selector "' + selector + '"')
+  }
   root.classList.add('solarchart-tabs');
-  var content = makeTabs(tabs).concat(makeContent(tabs));
-  appendChildren(root, content);
+
+  var header = document.createElement('div');
+  header.classList.add('solarchart-header');
+  appendChildren(header, makeTabs(tabs));
+  var content = makeTabs(tabs).concat();
+  appendChildren(root, [header, makeContent(tabs)]);
 
   var firstContent = root.querySelectorAll('[data-index="0"]')[0]
   var innerContent = firstContent.querySelectorAll('.solarchart-tab-content-inner')
@@ -53,33 +64,52 @@ function Tabs(config) {
 
 
   function clickHandler(element, event) {
+      element.classList.add('active');
+
+      var link = element.querySelector('a');
+
       var id = element.dataset.id;
       var index = parseInt(element.dataset.tabIndex);
-      var target = root.querySelectorAll('[data-id-content="' + id + '"]');
+      var target = root.querySelector('[data-id-content="' + id + '"]');
       var content = root.querySelectorAll('[data-id-content]');
+      var otherTabs = root.querySelectorAll('div:not([data-id="' + id + '"])');
+      
+      var otherTabs = root.querySelectorAll('div:not([data-id="' + id + '"])');
+
+      Array.prototype.forEach.call(otherTabs, function(t) {
+        t.classList.remove('active');
+      })
+
       Array.prototype.forEach.call(content, function(t) {
         t.style.display = 'none';
       })
-      target[0].style.display = 'block';
-      var inner = target[0].querySelectorAll('.solarchart-tab-content-inner')[0]
+      target.style.display = 'block';
+      var inner = target.querySelectorAll('.solarchart-tab-content-inner')[0]
       tabs[index].callback(inner);
   }
 
   // Array Tabs -> Array AElements
   function makeTabs(tabs) {
-    return tabs.reduce(function(acc, tab, index) {
+    let t = tabs.reduce(function(acc, tab, index) {
+      var outer = document.createElement('div');
+      outer.classList.add('solarchart-tab');
+      outer.setAttribute('data-tab-index', index);
+      outer.setAttribute('data-id', tab.id);
+
       var link = document.createElement('a');
-      link.setAttribute('href', 'javascript:void(0);');
-      link.setAttribute('data-tab-index', index);
-      link.classList.add('solarchart-tab')
+      link.setAttribute('href', 'javascript:void(0);');      
       link.innerText = tab.label;
-      link.setAttribute('data-id', tab.id);
-      link.addEventListener('click', function(event) {
-        clickHandler(link, event);
-      })
-      acc.push(link);
+      outer.addEventListener('click', function(event) {
+        clickHandler(event.currentTarget, event);
+      });
+
+      outer.appendChild(link);
+      acc.push(outer);
       return acc;
     }, []);
+
+    t[0].classList.add('active');
+    return t;
   }
 
 }
