@@ -11,12 +11,22 @@ export function run(options) {
   let selector = options.selector;
 
   Tabs({
-    selector : "#chart-tabs",
     tabs : [
-      
       {
-        id : "ratios",
-        label : "Ratios",
+        id: 'projections',
+        display: 'block',
+        label: 'Projections',
+        callback : function(element) {
+          element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
+          StairstepChart({
+            selector : "#stairstep-chart",
+            data: Util.toProjectionFormat(data)
+          });
+        } 
+      }, {
+        id: 'ratios',
+        display: 'none',
+        label: 'Ratios',
         callback : function(element) {
           element.innerHTML='<canvas id="pie-chart" width="600" height="400"></canvas>';
 
@@ -31,18 +41,37 @@ export function run(options) {
             }
           });
         }
-      },
-      {
-        id : "projections",
-        label : "Projections",
-        callback : function(element) {
-          element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
-          StairstepChart({
-            selector : "#stairstep-chart",
-            data: Util.toProjectionFormat(data)
-          });
-        }
-      },
+      }
+
+      // {
+      //   id : "ratios",
+      //   label : "Ratios",
+      //   callback : function(element) {
+      //     element.innerHTML='<canvas id="pie-chart" width="600" height="400"></canvas>';
+
+      //     PieChart({
+      //       selector : "#pie-chart",
+      //       data: {
+      //         "Electric":50,
+      //         "Ground Travel":26,
+      //         "Natural Gas":19,
+      //         "Solid Waste":4,
+      //         "Water Related":.3
+      //       }
+      //     });
+      //   }
+      // },
+      // {
+      //   id : "projections",
+      //   label : "Projections",
+      //   callback : function(element) {
+      //     element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
+      //     StairstepChart({
+      //       selector : "#stairstep-chart",
+      //       data: Util.toProjectionFormat(data)
+      //     });
+      //   }
+      // },
 
     ]
   })

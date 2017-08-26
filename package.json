@@ -17,7 +17,7 @@
     "postinstall": "npm run build",
     "publish-gh-pages": "node publish-gh-pages.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack" : "webpack --config webpack.config.js"
+    "webpack": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "gh-pages": "^1.0.0",
+    "mustache": "^2.3.0",
     "node-sass": "4.5.3",
     "parallelshell": "3.0.1",
     "typescript": "^2.3.4",
