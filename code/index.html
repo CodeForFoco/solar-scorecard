@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Stairstep Chart</title>
-  <script type="text/javascript" src="js/chartjs/Chart.min.js"></script>
-  <script type="text/javascript" src="js-compiled/Stats.js"></script>
-  <script type="text/javascript" src="js/util.js"></script>
-  <script type="text/javascript" src="js/Tabs.js"></script>
-  <script type="text/javascript" src="js/StairstepChart.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-
-  <script>
-    var demodata = util.toProjectionFormat(util.generateDummyData());
-
-    util.ready(function() {
-
-      Tabs({
-        id : "stairstep-chart-tabs",
-        tabs : [
-          {
-            id : "projections",
-            label : "Projections",
-            callback : function(element) {
-              element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
-
-              StairstepChart({
-                id : "stairstep-chart",
-                data: demodata
-              });
-            }
-          },
-          {
-            id : "ratios",
-            label : "Ratios",
-            callback : function(element) {
-              element.innerHTML='<canvas id="stairstep-chart2" width="600" height="400"></canvas>';
-
-              StairstepChart({
-                id : "stairstep-chart2",
-                data: demodata
-              });
-            }
-          }
-
-        ]
-      })
-    });
-
-  </script>
-
-</head>
-<body>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-9">
-      <div id="stairstep-chart-tabs">
+  <head>
+    <meta charset="utf-8">
+    <title>Stairstep Chart</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+          <div id="stairstep-chart-tabs"></div>
+        </div>
+        <div class="solarchart-tab-content-wrapper">
+          <div class id="charts"></div>
+        </div>
       </div>
-
     </div>
-  </div>
-</div>
+    
+    <script id="template--btn" type="text/html">
+      {{#tabs}}
+        <a href="javascript:void(0);" data-chart-id="solar-chart--{{id}}" class="solarchart-tab button" data-id="{{id}}">{{label}}</a>
+      {{/tabs}}
+    </script>
+    <script id="template--chart" type="text/html">
+      {{#tabs}}
+        <div data-index="{{@index}}" data-chart-id="solar-chart--{{id}}" class="solarchart-tab-content" style="display: {{display}};">
+          <div class="solarchart-tab-content-inner">
+            <canvas id="solar-chart--{{id}}" width="600" height="400"></canvas>
+          </div>
+        </div>
+      {{/tabs}}
+    </script>
 
-</body>
+    <script type="text/javascript" src="js/mustache.js"></script>
+    <script type="text/javascript" src="js/chartjs/Chart.min.js"></script>
+    
+    <script type="text/javascript" src="js-compiled/Stats.js"></script>
+    <script type="text/javascript" src="js-compiled/Stats.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/Tabs.js"></script>
+    <script type="text/javascript" src="js/StairstepChart.js"></script>
+
+    <script>
+      var demodata = util.toProjectionFormat(util.generateDummyData());
+
+      util.ready(function () {
+        Tabs({
+          tabs: [
+            {
+              id: 'projections',
+              display: 'block',
+              label: 'Projections'
+            }, {
+              id: 'ratios',
+              display: 'none',
+              label: 'Ratios'
+            }
+          ]
+        });
+
+        StairstepChart({id: 'solar-chart--projections', data: demodata});
+        StairstepChart({id: 'solar-chart--ratios', data: demodata});
+      });
+    </script>
+  </body>
 </html>

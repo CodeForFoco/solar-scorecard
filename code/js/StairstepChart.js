@@ -12,15 +12,17 @@ function StairstepChart(config) {
       labels: data.all.map(function(obj) {
         return obj.date.getFullYear();
       }),
-      datasets: [
-        {
+      datasets: [{
           steppedLine: true,
           label: 'Solar Added to System (kW)',
           data: data.past.map(function(obj) {
-            return {x:obj.date.getFullYear(), y : obj.value};
+            return {
+              x: obj.date.getFullYear(),
+              y: obj.value
+            };
           }),
-          backgroundColor: "rgba(255, 99, 132, 0.2)"
-          ,borderColor: [
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: [
             'rgba(255,99,132,1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
@@ -34,7 +36,10 @@ function StairstepChart(config) {
           steppedLine: true,
           label: 'Projected Solor Added to System (kw)',
           data: data.futurePlus.map(function(obj) {
-            return {x:obj.date.getFullYear(), y : obj.value};
+            return {
+              x: obj.date.getFullYear(),
+              y: obj.value
+            };
           }),
           backgroundColor: "rgba(255, 99, 132, 0.2",
           borderColor: [
@@ -44,9 +49,15 @@ function StairstepChart(config) {
         },
         {
           label: 'Fort Collins Climate Goal (kW Electicity)',
-          data: [{x:2020,y:50},{x:2030,y:100}],
-          backgroundColor: "transparent"
-          ,borderColor: [
+          data: [{
+            x: 2020,
+            y: 50
+          }, {
+            x: 2030,
+            y: 100
+          }],
+          backgroundColor: "transparent",
+          borderColor: [
             'rgba(255,99,132,1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
@@ -64,7 +75,7 @@ function StairstepChart(config) {
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero:true
+            beginAtZero: true
           }
         }]
       }
