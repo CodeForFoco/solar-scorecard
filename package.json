@@ -10,13 +10,14 @@
   "scripts": {
     "browser-sync": "browser-sync start --server --files=$npm_package_config_bsync --open external --startPath ./code",
     "sass": "node-sass -q --source-map true code/scss/main.scss code/css/main.css",
-    "tsc-compile:linear": "tsc --outDir ./code/js-compiled ./code/linear_model/Stats.ts --target es5",
+    "tsc-compile:linear": "tsc --outDir ./code/js ./code/linear_model/Stats.ts --target es6",
     "tsc-compile": "npm run tsc-compile:linear",
     "build": "npm run sass && npm run tsc-compile",
-    "start": "npm run build && parallelshell 'npm run tsc-compile -- -w' 'npm run sass -- -w' 'npm run browser-sync'",
+    "start": "npm run build && parallelshell 'npm run tsc-compile -- -w' 'npm run sass -- -w' 'npm run browser-sync' 'npm run webpack -- --watch'",
     "postinstall": "npm run build",
     "publish-gh-pages": "node publish-gh-pages.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -39,8 +40,10 @@
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "gh-pages": "^1.0.0",
+    "mustache": "^2.3.0",
     "node-sass": "4.5.3",
     "parallelshell": "3.0.1",
-    "typescript": "^2.3.4"
+    "typescript": "^2.3.4",
+    "webpack": "^3.5.5"
   }
 }
