@@ -1028,6 +1028,25 @@ hr {
   .hidden-print {
     display: none !important; } }
 
+.solarchart-tabs {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid #000;
+  margin: 15px 0; }
+  .solarchart-tabs .solarchart-tab {
+    background: #666;
+    border: 1px solid #444;
+    border-bottom: 1px solid #000;
+    top: 1px;
+    position: relative;
+    margin-right: 15px;
+    padding: 10px 20px;
+    color: #fff; }
+    .solarchart-tabs .solarchart-tab.active {
+      background: #999;
+      top: 1px;
+      border-bottom: 1px solid #fff; }
+
 svg.root {
   background: #eee;
   border: 1px solid #000; }

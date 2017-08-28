@@ -1,4 +1,4 @@
-class LinearModel2d {
+export class LinearModel2d {
     original: number[][];
     slope: number;
     intercept: number;
@@ -119,7 +119,7 @@ class LinearModel2d {
     }
 }
 
-class LinearModel1d extends LinearModel2d {
+export class LinearModel1d extends LinearModel2d {
     original1D: number[];
     constructor(original1D: number[]) {
         let o = []
@@ -135,7 +135,7 @@ class LinearModel1d extends LinearModel2d {
     }
 }
 
-function line_generator() {
+export function line_generator() {
     var last = 0
     // We don't need or want crazy jumps up or down
     var small_inc = [-0.1, 0.0, 0.1, 0.2] // this reps percentage change
