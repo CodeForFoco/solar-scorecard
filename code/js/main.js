@@ -4,6 +4,16 @@ import * as Util from './Util.js';
 import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
 
+export function runningTotal(data) {
+  return data.reduce(function(acc, value) {
+    var current = value + acc.total;
+    return {
+      data : acc.data.concat([current]),
+      total : current
+    }
+  }, { total : 0, data : [] })  
+}
+
 // { selector : String, data :: Array [year, value] }
 export function run(options) {
 
