@@ -1,5 +1,31 @@
 import {LinearModel2d, linearModel, line_generator} from './Stats.js';
 
+// Returns whatever is passed into it
+export function identity(a) { return a; }
+
+// Array a -> a
+export function first(a) { return a[0]; }
+// Array a -> a
+export function second(a) { return a[1]; }
+
+// Array a -> Array a
+export function cloneArray(a) {
+  return a.concat();
+}
+
+// Array a -> a
+export function tail(a) {
+  return a.slice(-1)[0];
+}
+
+// Array a -> Array a -> Array (Array a)
+export function zip(arr1, arr2) {
+  let shorter = (arr1.length <= arr2.length) ? arr1 : arr2;
+  return shorter.reduce(function(acc, _, index) {
+    acc.push([arr1[index], arr2[index]]);
+    return acc;
+  }, []);
+}
 // Convert and array of [year,value] into
 // and object seperating the values into past and future,
 // where the current year is considered the future.

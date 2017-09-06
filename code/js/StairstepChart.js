@@ -22,7 +22,7 @@ export default function StairstepChart(config) {
       datasets: [
         {
           steppedLine: true,
-          label: 'Boulder Solar Added to System (kW)',
+          label: 'Total Boulder Solar Added (kW)',
           data: data.past.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
@@ -32,7 +32,7 @@ export default function StairstepChart(config) {
         },
         {
           steppedLine: true,
-          label: 'Projected Boulder Solar Added to System (kw)',
+          label: 'Projected Boulder Solar Added (kw)',
           data: data.futurePlus.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
