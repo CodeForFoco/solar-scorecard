@@ -32,18 +32,16 @@ export default function StairstepChart(config) {
         },
         {
           steppedLine: true,
-          label: 'Projected Boulder Solor Added to System (kw)',
+          label: 'Projected Boulder Solar Added to System (kw)',
           data: data.futurePlus.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
           backgroundColor: "rgba(255, 99, 132, 0.2",
-          borderColor: [
-            'blue'
-          ],
+          borderColor: ['blue'],
           borderWidth: 2
         },
         {
-          label: 'Fort Collins Climate Goal (kW Electicity)',
+          label: 'Fort Collins Climate Goal (kW)',
           data: [{x:2020,y:37348},{x:2030,y:149392}],
           backgroundColor: "transparent",
           borderColor: 'rgba(255,99,132,1)',
