@@ -55,7 +55,7 @@ export default function Tabs(config) {
   // Handle a tab click
   // event :: ClickEvent
   function handleClick(event) {
-    var chartId = event.srcElement.dataset.chartId;
+    var chartId = event.target.dataset.chartId;
     showHideChart(chartId);
     callbackMap[chartId](getInnerContentForChart(chartId));
   }
