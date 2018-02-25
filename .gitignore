@@ -1,7 +1,7 @@
 /node_modules
 npm-debug.log
-js-compiled/*.js
-css/*.css
-css/*.css.map
-dist/SolarScorecard.js
-dist/solarscorecard.js.map
+/src/js-compiled/*.js
+/src/css/*.css
+/src/css/*.css.map
+/src/dist/SolarScorecard.js
+/src/dist/solarscorecard.js.map

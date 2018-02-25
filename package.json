@@ -1,16 +1,16 @@
 {
   "name": "solar-scorecard",
   "config": {
-    "bsync": "./**/*.html ./**/*.css ./**/*.js"
+    "bsync": "./src/**/*.html ./src/**/*.css ./src/**/*.js"
   },
   "version": "0.1.0",
   "private": true,
   "description": "Solar Scorecard project: track Fort Collins renewable/solar energy goals.",
   "main": "index.js",
   "scripts": {
-    "browser-sync": "browser-sync start --server --files=$npm_package_config_bsync --open external",
-    "sass": "node-sass -q --source-map true scss/main.scss css/main.css",
-    "tsc-compile:linear": "tsc --outDir ./js ./linear_model/Stats.ts --target es6",
+    "browser-sync": "browser-sync start --server --files=$npm_package_config_bsync --open external --startPath ./src",
+    "sass": "node-sass -q --source-map true src/scss/main.scss src/css/main.css",
+    "tsc-compile:linear": "tsc --outDir ./src/js ./src/linear_model/Stats.ts --target es6",
     "tsc-compile": "npm run tsc-compile:linear",
     "build": "npm run sass && npm run tsc-compile",
     "start": "npm run build && parallelshell 'npm run tsc-compile -- -w' 'npm run sass -- -w' 'npm run browser-sync' 'npm run webpack -- --watch'",

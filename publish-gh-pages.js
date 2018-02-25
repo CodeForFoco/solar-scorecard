@@ -1,3 +1,3 @@
 var ghpages = require('gh-pages');
 
-ghpages.publish('.', function(err) {});
+ghpages.publish('src', function(err) {});

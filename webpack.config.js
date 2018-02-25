@@ -3,11 +3,11 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  entry: './js/main.js',
+  entry: './src/js/main.js',
   target: 'web',
   output: {
     filename: '../dist/SolarScorecard.js',
-    path: path.resolve(__dirname, 'js'),
+    path: path.resolve(__dirname, 'src/js'),
     sourceMapFilename: '../dist/solarscorecard.js.map',
     library: "SolarScorecard",
     libraryTarget: "var"
