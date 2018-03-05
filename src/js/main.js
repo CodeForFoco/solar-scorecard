@@ -1,8 +1,16 @@
-import {LinearModel2d} from './Stats.js';
+import Vue from 'vue';
+import VueMaterial from 'vue-material';
+import 'vue-material/dist/vue-material.css';
+import 'vue-material/dist/theme/default.css';
+Vue.use(VueMaterial);
+
+import { LinearModel2d } from '../linear_model/Stats.js';
 import Tabs from './Tabs.js';
 import * as Util from './Util.js';
 import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
+
+import Main from '../App.vue';
 
 // Array a -> Getter a a Number Number -> Array Number
 // Take an array of anything, and a function that gets numbers out of
@@ -152,5 +160,15 @@ export function projectData(linearmodel, origData) {
 
   return data;
 }
+
+const app = new Vue({
+  mounted() {
+    run({
+      selector: '#stairstep-chart-tabs',
+      data: boulderData,
+    });
+  },
+  render: h => h(Main),
+}).$mount('#app');
 
 export default SolarScorecard;

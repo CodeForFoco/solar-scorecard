@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Solar Scorecard</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- TODO: replace mustache with Vue -->
+    <script id="template--btn" type="text/html">
+      {{#tabs}}
+        <a href="javascript:void(0);" data-chart-id="{{id}}" class="solarchart-tab button" data-id="{{id}}">{{label}}</a>
+      {{/tabs}}
+    </script>
+    <script id="template--chart" type="text/html">
+      {{#tabs}}
+        <div data-index="{{@index}}" data-chart-id="{{id}}" class="solarchart-tab-content" style="display: {{display}};">
+          <div class="solarchart-tab-content-inner"></div>
+        </div>
+      {{/tabs}}
+    </script>
+  </body>
+</html>
