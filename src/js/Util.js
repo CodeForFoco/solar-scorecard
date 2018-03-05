@@ -1,4 +1,4 @@
-import {LinearModel2d, linearModel, line_generator} from './Stats.js';
+import {LinearModel2d, linearModel, line_generator} from '../linear_model/Stats.js';
 
 // Returns whatever is passed into it
 export function identity(a) { return a; }
