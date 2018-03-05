@@ -14,9 +14,38 @@
     "camelcase": "warn",
     "indent": ["error", 2],
     "no-undef": "error",
-    "no-global-assign": "error"
+    "no-empty": "warn",
+    "no-global-assign": "error",
+    "no-multi-str": "error",
+    "no-multi-spaces": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      { "max": 1, "maxEOF": 1, "maxBOF": 0 }
+    ],
+    "no-trailing-spaces": ["error", { "ignoreComments": true }],
+    "no-unneeded-ternary": "error",
+    "no-whitespace-before-property": "error",
+    "object-property-newline": ["error",{"allowAllPropertiesOnSameLine": true}],
+    "one-var": ["warn","always"],
+    "operator-linebreak": ["error", "after"],
+    "padded-blocks": ["error", "never"],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": "multiline-block-like",
+        "next": ["multiline-block-like"]
+      },
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "*", "next": "function" },
+      { "blankLine": "always", "prev": "function", "next": "*" },
+      { "blankLine": "never", "prev": "*", "next": "empty" },
+      { "blankLine": "always", "prev": "directive", "next": "*" }
+    ],
+    "quotes": ["error", "single"],
+    "quote-props": ["error", "as-needed"]
   },
   "env": {
-    "browser": true,
+    "browser": true
   }
 }
