@@ -24,13 +24,18 @@
             <span class="md-list-item-text">Home</span>
           </md-list-item>
 
+          <md-list-item @click="$router.push('/get-involved');">
+            <md-icon>record_voice_over</md-icon>
+            <span class="md-list-item-text">Get involved</span>
+          </md-list-item>
+
           <md-list-item @click="$router.push('/about');">
-            <md-icon>people</md-icon>
+            <md-icon>info</md-icon>
             <span class="md-list-item-text">About us</span>
           </md-list-item>
 
           <md-list-item @click="$router.push('/contact');">
-            <md-icon>help</md-icon>
+            <md-icon>question_answer</md-icon>
             <span class="md-list-item-text">Contact</span>
           </md-list-item>
         </md-list>

@@ -14,14 +14,16 @@ import Tabs from './Tabs.js';
 import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
 
-Vue.component('home-component', RouteTemplates.home);
-Vue.component('about-component', RouteTemplates.about);
-Vue.component('contact-component', RouteTemplates.contact);
+Vue.component('home', RouteTemplates.home);
+Vue.component('get-involved', RouteTemplates.getInvolved);
+Vue.component('about', RouteTemplates.about);
+Vue.component('contact', RouteTemplates.contact);
 
 // 1. Define route components.
-const Home = { template: '<home-component></home-component>' };
-const About = { template: '<about-component></about-component>' };
-const Contact = { template: '<contact-component></contact-component>' };
+const Home = { template: '<home></home>' };
+const GetInvolved = { template: '<get-involved></get-involved>' };
+const About = { template: '<about></about>' };
+const Contact = { template: '<contact></contact>' };
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -29,6 +31,7 @@ const Contact = { template: '<contact-component></contact-component>' };
 // `Vue.extend()`, or just a component options object.
 const routes = [
   { path: '/', component: Home },
+  { path: '/get-involved', component: GetInvolved },
   { path: '/about', component: About },
   { path: '/contact', component: Contact },
 ];
@@ -44,61 +47,63 @@ import Main from '../App.vue';
 
 // Array a -> Getter a a Number Number -> Array Number
 // Take an array of anything, and a function that gets numbers out of
-// the array, and return an array of cumulative values  
+// the array, and return an array of cumulative values
 export function runningTotal(data, lens) {
   lens = lens || Util.identity;
-  let result = data.reduce(function(acc, value) {
-    var current = lens(value) + acc.total;
-    return {
-      data : acc.data.concat([current]),
-      total : current
-    }
-  }, { total : 0, data : [] });
-  return result.data;  
+  let result = data.reduce(
+    function(acc, value) {
+      var current = lens(value) + acc.total;
+      return {
+        data: acc.data.concat([current]),
+        total: current,
+      };
+    },
+    { total: 0, data: [] }
+  );
+  return result.data;
 }
 
 // { selector : String, data :: Array [year, value] }
 export function run(options) {
-
   let linearmodel = new LinearModel2d(options.data);
-  let data = projectData(
-    linearmodel,
-    cumulativeData(options.data)
-  );
+  let data = projectData(linearmodel, cumulativeData(options.data));
   let selector = options.selector;
 
   Tabs({
-    tabs : [
+    tabs: [
       {
         id: 'projections',
         display: 'block',
         label: 'Projections',
-        callback : function(element) {
-          element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
+        callback: function(element) {
+          element.innerHTML =
+            '<canvas id="stairstep-chart" width="600" height="400"></canvas>';
           StairstepChart({
-            selector : "#stairstep-chart",
-            data: Util.toProjectionFormat(data)
+            selector: '#stairstep-chart',
+            data: Util.toProjectionFormat(data),
           });
-        } 
-      }, {
+        },
+      },
+      {
         id: 'ratios',
         display: 'none',
         label: 'Ratios',
-        callback : function(element) {
-          element.innerHTML='<canvas id="pie-chart" width="600" height="400"></canvas>';
+        callback: function(element) {
+          element.innerHTML =
+            '<canvas id="pie-chart" width="600" height="400"></canvas>';
 
           PieChart({
-            selector : "#pie-chart",
+            selector: '#pie-chart',
             data: {
-              "Electric":50,
-              "Ground Travel":26,
-              "Natural Gas":19,
-              "Solid Waste":4,
-              "Water Related":.3
-            }
+              Electric: 50,
+              'Ground Travel': 26,
+              'Natural Gas': 19,
+              'Solid Waste': 4,
+              'Water Related': 0.3,
+            },
           });
-        }
-      }
+        },
+      },
 
       // {
       //   id : "ratios",
@@ -129,10 +134,9 @@ export function run(options) {
       //     });
       //   }
       // },
-
-    ]
-  })
-};
+    ],
+  });
+}
 
 // Built in Document.ready
 // function for convenience
@@ -155,15 +159,15 @@ export let boulderData = (function() {
     [2016, 1556],
     [2017, 595],
   ];
-}());
+})();
 
 // Array [year, value] -> Array [year, value]
-export function cumulativeData (data) {
+export function cumulativeData(data) {
   let years = data.map(Util.first);
   let values = data.map(Util.second);
   return Util.zip(years, runningTotal(values));
-}; 
-  
+}
+
 // LinearModel -> Array [year, value] -> {
 //   all : Array { date : Date, value : Number },
 //   past : Array { date : Date, value : Number },
@@ -176,15 +180,14 @@ export function cumulativeData (data) {
 export function projectData(linearmodel, origData) {
   // Clone the data so we won't modify the
   // original copy.
-  let data = Util.cloneArray(origData)
-                 .map(Util.cloneArray);
+  let data = Util.cloneArray(origData).map(Util.cloneArray);
 
   let lastYear = Util.tail(data)[0];
   let firstYear = data[0][0];
   // let linearmodel = new LinearModel2d(data);
-    
+
   for (var year = lastYear + 1; year <= 2030; year++) {
-    var projection = linearmodel.project_r_squared(year, year-lastYear+1);
+    var projection = linearmodel.project_r_squared(year, year - lastYear + 1);
     data.push([year, Math.round(projection[1])]);
   }
 
