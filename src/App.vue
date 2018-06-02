@@ -19,29 +19,31 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item>
+          <md-list-item @click="$router.push('/');">
             <md-icon>home</md-icon>
             <span class="md-list-item-text">Home</span>
           </md-list-item>
 
-          <md-list-item>
-            <md-icon>people</md-icon>
+          <md-list-item @click="$router.push('/get-involved');">
+            <md-icon>record_voice_over</md-icon>
+            <span class="md-list-item-text">Get involved</span>
+          </md-list-item>
+
+          <md-list-item @click="$router.push('/about');">
+            <md-icon>info</md-icon>
             <span class="md-list-item-text">About us</span>
           </md-list-item>
 
-          <md-list-item>
-            <md-icon>help</md-icon>
-            <span class="md-list-item-text">How to help</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>place</md-icon>
-            <span class="md-list-item-text">Where is my city?</span>
+          <md-list-item @click="$router.push('/contact');">
+            <md-icon>question_answer</md-icon>
+            <span class="md-list-item-text">Contact</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
 
       <md-app-content>
+        <!-- component matched by the route will render here -->
+        <router-view></router-view>
         <div class="solarchart-wrap">
           <div class="solarchart-tabs"></div>
           <div class="solarchart-tab-content-wrapper">
