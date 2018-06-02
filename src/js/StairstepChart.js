@@ -53,7 +53,8 @@ export default function StairstepChart(config) {
           }),
           borderColor: boulderProjectionLine,
           backgroundColor: boulderBackground,
-          borderWidth: 2
+          borderWidth: 2,
+            borderDash: [2,2]
         },
         {
             steppedLine: true,
@@ -73,7 +74,8 @@ export default function StairstepChart(config) {
             }),
             borderColor: fcProjectionLine,
             backgroundColor: fcBackground,
-            borderWidth: 2
+            borderWidth: 2,
+            borderDash: [2,2]
         },
         {
           label: 'Fort Collins Climate Goal (kW)',
