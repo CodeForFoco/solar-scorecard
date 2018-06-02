@@ -1,14 +1,44 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.css';
 import 'vue-material/dist/theme/default.css';
+
 Vue.use(VueMaterial);
+Vue.use(VueRouter);
 
 import { LinearModel2d } from '../linear_model/Stats.js';
-import Tabs from './Tabs.js';
+import * as RouteTemplates from './RouteTemplates';
 import * as Util from './Util.js';
+import Tabs from './Tabs.js';
 import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
+
+Vue.component('home-component', RouteTemplates.home);
+Vue.component('about-component', RouteTemplates.about);
+Vue.component('contact-component', RouteTemplates.contact);
+
+// 1. Define route components.
+const Home = { template: '<home-component></home-component>' };
+const About = { template: '<about-component></about-component>' };
+const Contact = { template: '<contact-component></contact-component>' };
+
+// 2. Define some routes
+// Each route should map to a component. The "component" can
+// either be an actual component constructor created via
+// `Vue.extend()`, or just a component options object.
+const routes = [
+  { path: '/', component: Home },
+  { path: '/about', component: About },
+  { path: '/contact', component: Contact },
+];
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = new VueRouter({
+  routes, // short for `routes: routes`
+});
 
 import Main from '../App.vue';
 
@@ -168,7 +198,19 @@ const app = new Vue({
       data: boulderData,
     });
   },
+  router,
+  methods: {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
+    },
+  },
   render: h => h(Main),
+  computed: {
+    username() {
+      // We will see what `params` is shortly
+      return this.$route.params.username;
+    },
+  },
 }).$mount('#app');
 
 export default SolarScorecard;
