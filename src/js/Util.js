@@ -1,4 +1,4 @@
-import {LinearModel2d, linearModel, line_generator} from '../linear_model/Stats.js';
+import {LinearModel2d, linearModel} from '../linear_model/Stats.js';
 
 // Returns whatever is passed into it
 export function identity(a) { return a; }
@@ -31,23 +31,23 @@ export function zip(arr1, arr2) {
 // where the current year is considered the future.
 // Array [year, value] -> { past : Array DataPoint, future : Array DataPoint }
 export function toYearlyFormat(data) {
-  var data = data.map(function(val, index) {
+  var data = data.map(function(val) {
     return {
       date : new Date("" + val[0] + "/01/01"),
       value : val[1]
     }
-  })
+  });
 
   // Date -> Date -> Boolean
   function yearBefore(d1, d2) {
     return d1.getFullYear() < d2.getFullYear();
   }
 
-  var pastData = data.filter(function(d) {
+  let pastData = data.filter(function(d) {
     return yearBefore(d.date, new Date())
-  })
+  });
 
-  var futureData = data.filter(function(d) {
+  let futureData = data.filter(function(d) {
     return !yearBefore(d.date, new Date()) ||
            d.date.getFullYear() == (new Date()).getFullYear();
   });
@@ -57,17 +57,6 @@ export function toYearlyFormat(data) {
     future : futureData
   }
 }
-
-// Array [year, value]
-export function generateDummyData() {
-  var data = [];
-  var generateData = line_generator();
-  for (var year = 2005; year <= 2030; year++) {
-    data.push([year, generateData()]);
-  }
-  return data;
-}
-
 
 // Connect one series of data with another,
 // by putting the last data point of the first
@@ -89,17 +78,17 @@ export function ready(domReadyFn) {
 // }
 export function toProjectionFormat (data) {
 
-  var data1 = toYearlyFormat(data);
+  let yearlyData = toYearlyFormat(data);
 
-  var linearmodel = new LinearModel2d(data1.past.map(function(point) {
+  let linearmodel = new LinearModel2d(yearlyData.past.map(function(point) {
     return [point.date.getFullYear(), point.value];
   }));
 
-  data1.futurePlus = connectDataTo(
-    data1.past,
-    data1.future.map(function(point) {
-      var year = point.date.getFullYear();
-      var proj = linearmodel.project_r_squared(year, year-2017+1);      
+  yearlyData.futurePlus = connectDataTo(
+    yearlyData.past,
+    yearlyData.future.map(function(point) {
+      let year = point.date.getFullYear();
+      let proj = linearmodel.project_r_squared(year, year-2017+1);
       
       return {
         date : point.date,
@@ -108,11 +97,11 @@ export function toProjectionFormat (data) {
     })
   );
 
-  data1.futureMinus = connectDataTo(
-    data1.past,
-    data1.future.map(function(point) {
-      var year = point.date.getFullYear();
-      var proj = linearmodel.project_r_squared(year, year-2017+1);
+  yearlyData.futureMinus = connectDataTo(
+    yearlyData.past,
+    yearlyData.future.map(function(point) {
+      let year = point.date.getFullYear();
+      let proj = linearmodel.project_r_squared(year, year-2017+1);
       return {
         date : point.date,
         value : Math.round(proj[2])
@@ -120,7 +109,7 @@ export function toProjectionFormat (data) {
     })
   );
 
-  data1.all = data1.past.concat(data1.future);
+  yearlyData.all = yearlyData.past.concat(yearlyData.future);
 
-  return data1;
+  return yearlyData;
 }
