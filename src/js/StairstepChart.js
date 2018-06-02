@@ -24,11 +24,7 @@ export default function StairstepChart(config) {
     const boulderProjectionLine = "hsl(16, 100%, 82%)";
     const boulderBackground = 'hsl(16, 100%, 82%, .2)';
 
-
-
-
-
-  var myChart = new Chart(ctx, {
+    new Chart(ctx, {
     type: 'line',
     data: {
       labels: data.boulder.all.map(function(obj) {

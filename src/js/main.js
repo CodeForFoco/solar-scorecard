@@ -18,7 +18,7 @@ import Main from '../App.vue';
 export function runningTotal(data, lens) {
   lens = lens || Util.identity;
   let result = data.reduce(function(acc, value) {
-    var current = lens(value) + acc.total;
+    let current = lens(value) + acc.total;
     return {
       data : acc.data.concat([current]),
       total : current
@@ -82,12 +82,6 @@ export function run(options) {
   })
 }
 
-// Built in Document.ready
-// function for convenience
-export function ready(fn) {
-  Util.ready(fn);
-}
-
 export let boulderData = (function() {
   return [
     [2006, 53],
@@ -145,22 +139,21 @@ export function projectData(linearmodel, origData) {
                  .map(Util.cloneArray);
 
   let lastYear = Util.tail(data)[0];
-  let firstYear = data[0][0];
   // let linearmodel = new LinearModel2d(data);
     
-  for (var year = lastYear + 1; year <= 2030; year++) {
-    var projection = linearmodel.project_r_squared(year, year-lastYear+1);
+  for (let year = lastYear + 1; year <= 2030; year++) {
+    let projection = linearmodel.project_r_squared(year, year-lastYear+1);
     data.push([year, Math.round(projection[1])]);
   }
 
   return data;
 }
 
-var xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
 xhr.onload = function() {
     if (xhr.status === 200) {
-        const app = new Vue({
+        new Vue({
             mounted() {
                 run({
                     selector: '#stairstep-chart-tabs',
@@ -174,9 +167,7 @@ xhr.onload = function() {
         }).$mount('#app');
     }
     else {
-        alert('Request failed.  Returned status of ' + xhr.status);
+        alert('FoCo API request failed.  Returned status of ' + xhr.status);
     }
 };
 xhr.send();
-
-export default SolarScorecard;

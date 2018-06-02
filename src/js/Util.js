@@ -30,8 +30,8 @@ export function zip(arr1, arr2) {
 // and object seperating the values into past and future,
 // where the current year is considered the future.
 // Array [year, value] -> { past : Array DataPoint, future : Array DataPoint }
-export function toYearlyFormat(data) {
-  var data = data.map(function(val) {
+export function toYearlyFormat(origData) {
+  let data = origData.map(function(val) {
     return {
       date : new Date("" + val[0] + "/01/01"),
       value : val[1]
@@ -63,10 +63,6 @@ export function toYearlyFormat(data) {
 // as the first data point of the second.
 export function connectDataTo(series1, series2) {
   return [series1[series1.length-1]].concat(series2);
-}
-
-export function ready(domReadyFn) {
-  document.addEventListener('DOMContentLoaded', domReadyFn);
 }
 
 // Array [year, value] -> {
@@ -110,6 +106,5 @@ export function toProjectionFormat (data) {
   );
 
   yearlyData.all = yearlyData.past.concat(yearlyData.future);
-
   return yearlyData;
 }
