@@ -8,6 +8,23 @@ import {LinearModel2d} from "../linear_model/Stats";
 //   element : CanvasElement }
 export default function StairstepChart(config) {
 
+    const fortCollinsDataArray = function() {
+        const apiResponse = JSON.parse(config.data.fortCollins);
+        let aggregatedByYear = {};
+        apiResponse.forEach((r) => {
+            let regex = /\d+\/\d+\/(\d+) \d+:\d+:\d+/;
+            const regSearchResult = regex.exec(r.date_of_service);
+            if (regSearchResult == null) return;
+            const year = regSearchResult[1];
+            const previousValue = aggregatedByYear[year] ? aggregatedByYear[year]: 0;
+            aggregatedByYear[year] = previousValue + parseFloat(r.system_capacity_kw_dc);
+        });
+
+        return Object.keys(aggregatedByYear).map(function(key) {
+            return [Number(key), Math.round(aggregatedByYear[key])];
+        });
+    }();
+
     const boulderDataArray = (function() {
         return [
             [2006, 53],
@@ -78,10 +95,10 @@ export default function StairstepChart(config) {
         boulderLinearModel,
         cumulativeData(boulderDataArray)
     );
-    let foCoLinearModel = new LinearModel2d(config.data.fortCollins);
+    let foCoLinearModel = new LinearModel2d(fortCollinsDataArray);
     let fcData = projectData(
         foCoLinearModel,
-        cumulativeData(config.data.fortCollins)
+        cumulativeData(fortCollinsDataArray)
     );
 
     let data = {

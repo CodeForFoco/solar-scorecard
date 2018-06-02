@@ -48,23 +48,6 @@ export function run(options) {
   })
 }
 
-let fortCollinsDataProcessor = function(apiRawResponse) {
-    const apiResponse = JSON.parse(apiRawResponse);
-    let aggregatedByYear = {};
-    apiResponse.forEach((r) => {
-        let regex = /\d+\/\d+\/(\d+) \d+:\d+:\d+/;
-        const regSearchResult = regex.exec(r.date_of_service);
-        if (regSearchResult == null) return;
-        const year = regSearchResult[1];
-        const previousValue = aggregatedByYear[year] ? aggregatedByYear[year]: 0;
-        aggregatedByYear[year] = previousValue + parseFloat(r.system_capacity_kw_dc);
-    });
-
-    return Object.keys(aggregatedByYear).map(function(key) {
-        return [Number(key), Math.round(aggregatedByYear[key])];
-    });
-};
-
 let xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
 xhr.onload = function() {
@@ -74,7 +57,7 @@ xhr.onload = function() {
                 run({
                     selector: '#stairstep-chart-tabs',
                     data: {
-                        fortCollins: fortCollinsDataProcessor(xhr.responseText)
+                        fortCollins: xhr.responseText
                     },
                 });
             },
