@@ -1,4 +1,3 @@
-// TODO: stop tracking chart.js, use node module instead
 import Chart from 'chart.js';
 
 // { data : Array [{label:value}],
