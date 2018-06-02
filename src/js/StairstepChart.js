@@ -13,7 +13,21 @@ export default function StairstepChart(config) {
   }
 
   let ctx = element.getContext('2d');
-  
+
+  // defining Chart colors
+    const fcRealLine = 'hsl(207, 66%, 30%)';
+    const fcProjectionLine = "hsl(207, 66%, 50%)";
+    const fcBackground = 'hsl(207, 66%, 50%, .2)';
+    const fcGoalLine = "hsl(207, 88%, 30%)";
+
+    const boulderRealLine = 'hsl(16, 100%, 74%)';
+    const boulderProjectionLine = "hsl(16, 100%, 82%)";
+    const boulderBackground = 'hsl(16, 100%, 82%, .2)';
+
+
+
+
+
   var myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -27,8 +41,8 @@ export default function StairstepChart(config) {
           data: data.boulder.past.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
-          backgroundColor: "rgba(0, 99, 132, 0.2)",
-          borderColor: 'rgba(0,99,132,1)',
+          borderColor: boulderRealLine,
+          backgroundColor: boulderBackground,
           borderWidth: 2
         },
         {
@@ -37,8 +51,8 @@ export default function StairstepChart(config) {
           data: data.boulder.futurePlus.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
-          backgroundColor: "rgba(0, 99, 132, 0.2",
-          borderColor: ['purple'],
+          borderColor: boulderProjectionLine,
+          backgroundColor: boulderBackground,
           borderWidth: 2
         },
         {
@@ -47,8 +61,8 @@ export default function StairstepChart(config) {
             data: data.fortCollins.past.map(function(obj) {
                 return {x:obj.date.getFullYear(), y : obj.value};
             }),
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            borderColor: 'rgba(255,99,132,1)',
+            borderColor: fcRealLine,
+            backgroundColor: fcBackground,
             borderWidth: 2
         },
         {
@@ -57,16 +71,17 @@ export default function StairstepChart(config) {
             data: data.fortCollins.futurePlus.map(function(obj) {
                 return {x:obj.date.getFullYear(), y : obj.value};
             }),
-            backgroundColor: "rgba(255, 99, 132, 0.2",
-            borderColor: ['blue'],
+            borderColor: fcProjectionLine,
+            backgroundColor: fcBackground,
             borderWidth: 2
         },
         {
           label: 'Fort Collins Climate Goal (kW)',
           data: [{x:2020,y:37348},{x:2030,y:149392}],
           backgroundColor: "transparent",
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 2
+          borderColor: fcGoalLine,
+          borderWidth: 2,
+          borderDash: [10,5]
         }
       ]
     },
