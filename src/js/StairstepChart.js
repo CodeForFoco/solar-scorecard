@@ -32,7 +32,7 @@ export default function StairstepChart(config) {
       datasets: [
         {
           steppedLine: true,
-          label: 'Total Boulder Solar Added (kW)',
+          label: 'Total Boulder',
           data: data.boulder.past.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
@@ -42,7 +42,7 @@ export default function StairstepChart(config) {
         },
         {
           steppedLine: true,
-          label: 'Projected Boulder Solar Added (kw)',
+          label: 'Projected Boulder',
           data: data.boulder.futurePlus.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
@@ -53,7 +53,7 @@ export default function StairstepChart(config) {
         },
         {
             steppedLine: true,
-            label: 'Total Fort Collins Solar Added (kW)',
+            label: 'Total Fort Collins',
             data: data.fortCollins.past.map(function(obj) {
                 return {x:obj.date.getFullYear(), y : obj.value};
             }),
@@ -63,7 +63,7 @@ export default function StairstepChart(config) {
         },
         {
             steppedLine: true,
-            label: 'Projected Fort Collins Solar Added (kw)',
+            label: 'Projected Fort Collins',
             data: data.fortCollins.futurePlus.map(function(obj) {
                 return {x:obj.date.getFullYear(), y : obj.value};
             }),
@@ -73,7 +73,7 @@ export default function StairstepChart(config) {
             borderDash: [2,2]
         },
         {
-          label: 'Fort Collins Climate Goal (kW)',
+          label: 'Fort Collins Climate Goal',
           data: [{x:2020,y:37348},{x:2030,y:149392}],
           backgroundColor: "transparent",
           borderColor: fcGoalLine,
@@ -89,10 +89,15 @@ export default function StairstepChart(config) {
         yAxes: [{
           ticks: {
             beginAtZero:true
+          },
+          scaleLabel: {
+            labelString: "kilowatts (kW)",
+            display: true
           }
         }]
       }
-    }
+    },
+
   });
 
 }
