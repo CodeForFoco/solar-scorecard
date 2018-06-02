@@ -1,10 +1,47 @@
 import Chart from 'chart.js';
+import * as Util from "./Util";
+import {cumulativeData, projectData} from "./main";
+import {LinearModel2d} from "../linear_model/Stats";
 
 // { data : Array [year, value],
 //   selector : SelectorString for Canvas Element,
 //   element : CanvasElement }
 export default function StairstepChart(config) {
-  let data = config.data;
+
+    const boulderDataArray = (function() {
+        return [
+            [2006, 53],
+            [2007, 548],
+            [2008, 1399],
+            [2009, 1765],
+            [2010, 2371],
+            [2011, 2072],
+            [2012, 1409],
+            [2013, 1903],
+            [2014, 8791],
+            [2015, 1136],
+            [2016, 1556],
+            [2017, 1812],
+            [2018, 2097]
+        ];
+    }());
+
+    let boulderLinearModel = new LinearModel2d(boulderDataArray);
+    let boulderData = projectData(
+        boulderLinearModel,
+        cumulativeData(boulderDataArray)
+    );
+    let foCoLinearModel = new LinearModel2d(config.data.fortCollins);
+    let fcData = projectData(
+        foCoLinearModel,
+        cumulativeData(config.data.fortCollins)
+    );
+
+    let data = {
+        boulder: Util.toProjectionFormat(boulderData),
+        fortCollins: Util.toProjectionFormat(fcData)
+    };
+
   let selector = config.selector;
   let element = config.element || document.querySelector(selector);
   if (!element) {

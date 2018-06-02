@@ -4,7 +4,6 @@ import 'vue-material/dist/vue-material.css';
 import 'vue-material/dist/theme/default.css';
 Vue.use(VueMaterial);
 
-import { LinearModel2d } from '../linear_model/Stats.js';
 import Tabs from './Tabs.js';
 import * as Util from './Util.js';
 import StairstepChart from './StairstepChart.js';
@@ -29,23 +28,6 @@ export function runningTotal(data, lens) {
 
 // { selector : String, data :: Array [year, value] }
 export function run(options) {
-
-  let boulderLinearModel = new LinearModel2d(options.data.boulder);
-  let boulderData = projectData(
-      boulderLinearModel,
-    cumulativeData(options.data.boulder)
-  );
-  let foCoLinearModel = new LinearModel2d(options.data.fortCollins);
-  let fcData = projectData(
-      foCoLinearModel,
-      cumulativeData(options.data.fortCollins)
-  );
-
-  let stairstepData = {
-    boulder: Util.toProjectionFormat(boulderData),
-    fortCollins: Util.toProjectionFormat(fcData)
-  };
-
   Tabs({
     tabs : [
       {
@@ -56,7 +38,7 @@ export function run(options) {
           element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
           StairstepChart({
             selector : "#stairstep-chart",
-            data: stairstepData
+            data: options.data
           });
         } 
       }, {
@@ -81,24 +63,6 @@ export function run(options) {
     ]
   })
 }
-
-export let boulderData = (function() {
-  return [
-    [2006, 53],
-    [2007, 548],
-    [2008, 1399],
-    [2009, 1765],
-    [2010, 2371],
-    [2011, 2072],
-    [2012, 1409],
-    [2013, 1903],
-    [2014, 8791],
-    [2015, 1136],
-    [2016, 1556],
-    [2017, 1812],
-    [2018, 2097]
-  ];
-}());
 
 let fortCollinsDataProcessor = function(apiRawResponse) {
     const apiResponse = JSON.parse(apiRawResponse);
@@ -159,7 +123,6 @@ xhr.onload = function() {
                 run({
                     selector: '#stairstep-chart-tabs',
                     data: {
-                        boulder: boulderData,
                         fortCollins: fortCollinsDataProcessor(xhr.responseText)
                     },
                 });
