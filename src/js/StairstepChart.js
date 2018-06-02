@@ -17,29 +17,49 @@ export default function StairstepChart(config) {
   var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: data.all.map(function(obj) {
+      labels: data.boulder.all.map(function(obj) {
         return obj.date.getFullYear();
       }),
       datasets: [
         {
           steppedLine: true,
           label: 'Total Boulder Solar Added (kW)',
-          data: data.past.map(function(obj) {
+          data: data.boulder.past.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
-          borderColor: 'rgba(255,99,132,1)',
+          backgroundColor: "rgba(0, 99, 132, 0.2)",
+          borderColor: 'rgba(0,99,132,1)',
           borderWidth: 2
         },
         {
           steppedLine: true,
           label: 'Projected Boulder Solar Added (kw)',
-          data: data.futurePlus.map(function(obj) {
+          data: data.boulder.futurePlus.map(function(obj) {
             return {x:obj.date.getFullYear(), y : obj.value};
           }),
-          backgroundColor: "rgba(255, 99, 132, 0.2",
-          borderColor: ['blue'],
+          backgroundColor: "rgba(0, 99, 132, 0.2",
+          borderColor: ['purple'],
           borderWidth: 2
+        },
+        {
+            steppedLine: true,
+            label: 'Total Fort Collins Solar Added (kW)',
+            data: data.fortCollins.past.map(function(obj) {
+                return {x:obj.date.getFullYear(), y : obj.value};
+            }),
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 2
+        },
+        {
+            steppedLine: true,
+            label: 'Projected Fort Collins Solar Added (kw)',
+            data: data.fortCollins.futurePlus.map(function(obj) {
+                return {x:obj.date.getFullYear(), y : obj.value};
+            }),
+            backgroundColor: "rgba(255, 99, 132, 0.2",
+            borderColor: ['blue'],
+            borderWidth: 2
         },
         {
           label: 'Fort Collins Climate Goal (kW)',

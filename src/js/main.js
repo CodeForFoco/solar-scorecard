@@ -30,12 +30,23 @@ export function runningTotal(data, lens) {
 // { selector : String, data :: Array [year, value] }
 export function run(options) {
 
-  let linearmodel = new LinearModel2d(options.data);
-  let data = projectData(
-    linearmodel,
-    cumulativeData(options.data)
+  let boulderLinearModel = new LinearModel2d(options.data.boulder);
+  let boulderData = projectData(
+      boulderLinearModel,
+    cumulativeData(options.data.boulder)
   );
-  let selector = options.selector;
+  let foCoLinearModel = new LinearModel2d(options.data.fortCollins);
+  let fcData = projectData(
+      foCoLinearModel,
+      cumulativeData(options.data.fortCollins)
+  );
+
+  debugger;
+
+  let stairstepData = {
+    boulder: Util.toProjectionFormat(boulderData),
+    fortCollins: Util.toProjectionFormat(fcData)
+  };
 
   Tabs({
     tabs : [
@@ -47,7 +58,7 @@ export function run(options) {
           element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
           StairstepChart({
             selector : "#stairstep-chart",
-            data: Util.toProjectionFormat(data)
+            data: stairstepData
           });
         } 
       }, {
@@ -69,40 +80,9 @@ export function run(options) {
           });
         }
       }
-
-      // {
-      //   id : "ratios",
-      //   label : "Ratios",
-      //   callback : function(element) {
-      //     element.innerHTML='<canvas id="pie-chart" width="600" height="400"></canvas>';
-
-      //     PieChart({
-      //       selector : "#pie-chart",
-      //       data: {
-      //         "Electric":50,
-      //         "Ground Travel":26,
-      //         "Natural Gas":19,
-      //         "Solid Waste":4,
-      //         "Water Related":.3
-      //       }
-      //     });
-      //   }
-      // },
-      // {
-      //   id : "projections",
-      //   label : "Projections",
-      //   callback : function(element) {
-      //     element.innerHTML='<canvas id="stairstep-chart" width="600" height="400"></canvas>';
-      //     StairstepChart({
-      //       selector : "#stairstep-chart",
-      //       data: Util.toProjectionFormat(data)
-      //     });
-      //   }
-      // },
-
     ]
   })
-};
+}
 
 // Built in Document.ready
 // function for convenience
@@ -127,12 +107,29 @@ export let boulderData = (function() {
   ];
 }());
 
+export let fortCollinsData = (function() {
+  return [
+    [2006, 38],
+    [2007, 238],
+    [2008, 1772],
+    [2009, 1329],
+    [2010, 42],
+    [2011, 9000],
+    [2012, 9000],
+    [2013, 1000],
+    [2014, 2000],
+    [2015, 3042],
+    [2016, 156],
+    [2017, 1203],
+  ];
+}());
+
 // Array [year, value] -> Array [year, value]
 export function cumulativeData (data) {
   let years = data.map(Util.first);
   let values = data.map(Util.second);
   return Util.zip(years, runningTotal(values));
-}; 
+}
   
 // LinearModel -> Array [year, value] -> {
 //   all : Array { date : Date, value : Number },
@@ -165,7 +162,10 @@ const app = new Vue({
   mounted() {
     run({
       selector: '#stairstep-chart-tabs',
-      data: boulderData,
+      data: {
+        boulder: boulderData,
+        fortCollins: fortCollinsData
+      },
     });
   },
   render: h => h(Main),
