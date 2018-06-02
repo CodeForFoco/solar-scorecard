@@ -6,8 +6,7 @@ import {LinearModel2d} from "../linear_model/Stats";
 // { data : Array [year, value],
 //   selector : SelectorString for Canvas Element,
 //   element : CanvasElement }
-export default function StairstepChart(config) {
-
+function prepareDataForDrawingOfStairstep(config) {
     const fortCollinsDataArray = function() {
         const apiResponse = JSON.parse(config.data.fortCollins);
         let aggregatedByYear = {};
@@ -78,7 +77,7 @@ export default function StairstepChart(config) {
     // Array a -> Getter a a Number Number -> Array Number
     // Take an array of anything, and a function that gets numbers out of
     // the array, and return an array of cumulative values
-     function runningTotal(data, lens) {
+    function runningTotal(data, lens) {
         lens = lens || Util.identity;
         let result = data.reduce(function(acc, value) {
             let current = lens(value) + acc.total;
@@ -88,7 +87,7 @@ export default function StairstepChart(config) {
             }
         }, { total : 0, data : [] });
         return result.data;
-     }
+    }
 
     let boulderLinearModel = new LinearModel2d(boulderDataArray);
     let boulderData = projectData(
@@ -101,10 +100,15 @@ export default function StairstepChart(config) {
         cumulativeData(fortCollinsDataArray)
     );
 
-    let data = {
+    return {
         boulder: Util.toProjectionFormat(boulderData),
         fortCollins: Util.toProjectionFormat(fcData)
     };
+}
+
+export default function StairstepChart(config) {
+
+    let data =  prepareDataForDrawingOfStairstep(config);
 
   let selector = config.selector;
   let element = config.element || document.querySelector(selector);
