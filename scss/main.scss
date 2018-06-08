@@ -1,9 +1,9 @@
 /**
  * All SCSS imports happen here
  */
-@import "bootstrap/bootstrap";
 @import "./tabs.scss";
 
+// TODO: migrate everything from here down into relevant files
 svg.root {
   background:#eee;
   border:1px solid #000;
@@ -21,4 +21,9 @@ svg.root {
 
 .future-plus {
   stroke: #43ff2d;
+}
+
+.md-drawer {
+  width: 230px;
+  max-width: calc(100vw - 125px);
 }

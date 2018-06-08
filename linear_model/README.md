@@ -73,13 +73,3 @@ Above will return `[2013, highest_value, lowest_value]`
 
 This is different than just `.project(year)` because, unlike project, it gives you a range the 
 data should fall in.
-
-### How to make changes and compile:
-
-Make sure you've installed typescript (`npm install -g typescript`)
-
-`tsc stats.ts --target es5`
-
-The `target --es5` ensures backwards compatablitity with older browsers and IE
-
-Just copy the stats.js over to the working directory, and you are good!

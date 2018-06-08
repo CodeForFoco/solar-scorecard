@@ -1,26 +1,22 @@
 .solarchart-tabs {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid #000;
+  margin: 15px 0;
 
-  display:flex;
-  justify-content:flex-start;
-  border-bottom:1px solid #000;
-  margin:15px 0;
-  
   .solarchart-tab {
-    background:#666;
-    border:1px solid #444;
-    border-bottom:1px solid #000;
-    top:1px;
-    position:relative;
-    margin-right:15px;
-    padding:10px 20px;
+    border: 1px solid #444;
+    border-bottom: 1px solid #000;
+    top: 1px;
+    position: relative;
+    margin-right: 15px;
+    padding: 10px 20px;
+    color: #fff;
 
     &.active {
-      background:#999;
-      top:1px;
-      border-bottom:1px solid #fff;
+      background: #bbb;
+      top: 1px;
+      border-bottom: 1px solid #fff;
     }
-
-    color:#fff;
-    
   }
 }
