@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack -p",
     "start": "webpack-dev-server",
-    "publish-gh-pages": "node publish-gh-pages.js",
+    "publish-gh-pages": "npm run build && node publish-gh-pages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
