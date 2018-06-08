@@ -7,9 +7,7 @@ import 'vue-material/dist/theme/default.css';
 Vue.use(VueMaterial);
 Vue.use(VueRouter);
 
-import { LinearModel2d } from '../linear_model/Stats.js';
 import * as RouteTemplates from './RouteTemplates';
-import * as Util from './Util.js';
 import Tabs from './Tabs.js';
 import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
@@ -57,8 +55,8 @@ export function run(options) {
           element.innerHTML =
             '<canvas id="stairstep-chart" width="600" height="400"></canvas>';
           StairstepChart({
-            selector : "#stairstep-chart",
-            data: options.data
+            selector: '#stairstep-chart',
+            data: options.data,
           });
         },
       },
@@ -80,42 +78,44 @@ export function run(options) {
               'Water Related': 0.3,
             },
           });
-        }
-      }
-    ]
-  })
+        },
+      },
+    ],
+  });
 }
 
 let xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
 xhr.onload = function() {
-    if (xhr.status === 200) {
-        new Vue({
-            mounted() {
-                run({
-                    selector: '#stairstep-chart-tabs',
-                    data: {
-                        fortCollins: xhr.responseText
-                    },
-                });
-            },
-            router,
-            methods: {
-              goBack() {
-                window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
-              },
-            },
-            computed: {
-              username() {
-                // We will see what `params` is shortly
-                return this.$route.params.username;
-              },
-            },
-            render: h => h(Main),
-        }).$mount('#app');
-    }
-    else {
-        alert('FoCo API request failed.  Returned status of ' + xhr.status);
-    }
+  if (xhr.status === 200) {
+    new Vue({
+      mounted() {
+        run({
+          selector: '#stairstep-chart-tabs',
+          data: {
+            fortCollins: xhr.responseText,
+          },
+        });
+      },
+      router,
+      methods: {
+        goBack() {
+          window.history.length > 1 ?
+            this.$router.go(-1) :
+            this.$router.push('/');
+        },
+      },
+      computed: {
+        username() {
+          // We will see what `params` is shortly
+          return this.$route.params.username;
+        },
+      },
+      render: h => h(Main),
+    }).$mount('#app');
+  } else {
+    alert('FoCo API request failed.  Returned status of ' + xhr.status);
+  }
 };
+
 xhr.send();
