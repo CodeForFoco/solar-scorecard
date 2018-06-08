@@ -12,17 +12,17 @@ Config Object
 */
 
 export default function Tabs(config) {
-
   // Index the tab's callbacks by their ids
   var callbackMap = config.tabs.reduce(function(acc, tab) {
     acc[tab.id] = tab.callback;
+
     return acc;
   }, {});
 
   var btnTemplate = document.getElementById('template--btn').innerHTML,
     chartTemplate = document.getElementById('template--chart').innerHTML,
-    btnsRendered = Mustache.render(btnTemplate, { tabs : config.tabs }),
-    chartsRendered = Mustache.render(chartTemplate, { tabs : config.tabs }),
+    btnsRendered = Mustache.render(btnTemplate, { tabs: config.tabs }),
+    chartsRendered = Mustache.render(chartTemplate, { tabs: config.tabs }),
     firstTabId = config.tabs[0].id,
     root = document.getElementById('charts');
 
@@ -49,7 +49,11 @@ export default function Tabs(config) {
 
   // ChartID -> Element
   function getInnerContentForChart(chartId) {
-    return root.querySelector('.solarchart-tab-content[data-chart-id="' + chartId + '"] .solarchart-tab-content-inner');
+    return root.querySelector(
+      '.solarchart-tab-content[data-chart-id="' +
+        chartId +
+        '"] .solarchart-tab-content-inner'
+    );
   }
 
   // Handle a tab click
@@ -69,10 +73,10 @@ export default function Tabs(config) {
 
     for (var i = 0; i < allChartElems.length; i++) {
       let chartElem = allChartElems[i];
-      
+
       if (chartElem.dataset.chartId !== chartId) {
         chartElem.style.display = 'none';
-      } else {        
+      } else {
         chartElem.style.display = 'block';
       }
     }
@@ -82,11 +86,10 @@ export default function Tabs(config) {
 
       if (chartButton.dataset.chartId !== chartId) {
         chartButton.classList.add('active');
-      } else {        
+      } else {
         chartButton.classList.remove('active');
       }
-    }   
-
+    }
   }
 }
 
@@ -101,7 +104,7 @@ export default function Tabs(config) {
 
 //   var tabs = config.tabs.map(function(tab, index) {
 //     tab.id = tab.id || "tab" + index;
-//     return tab; 
+//     return tab;
 //   });
 //   var root = document.querySelector(selector);
 //   if (!root) {
@@ -118,7 +121,6 @@ export default function Tabs(config) {
 //   var firstContent = root.querySelectorAll('[data-index="0"]')[0]
 //   var innerContent = firstContent.querySelectorAll('.solarchart-tab-content-inner')
 //   tabs[0].callback(innerContent[0]);
-
 
 //   // Element -> Array Element -> Eff(HTML)
 //   function appendChildren(root, children) {
@@ -152,7 +154,6 @@ export default function Tabs(config) {
 //     return root;
 //   }
 
-
 //   function clickHandler(element, event) {
 //       element.classList.add('active');
 
@@ -163,7 +164,7 @@ export default function Tabs(config) {
 //       var target = root.querySelector('[data-id-content="' + id + '"]');
 //       var content = root.querySelectorAll('[data-id-content]');
 //       var otherTabs = root.querySelectorAll('div:not([data-id="' + id + '"])');
-      
+
 //       var otherTabs = root.querySelectorAll('div:not([data-id="' + id + '"])');
 
 //       Array.prototype.forEach.call(otherTabs, function(t) {
@@ -187,7 +188,7 @@ export default function Tabs(config) {
 //       outer.setAttribute('data-id', tab.id);
 
 //       var link = document.createElement('a');
-//       link.setAttribute('href', 'javascript:void(0);');      
+//       link.setAttribute('href', 'javascript:void(0);');
 //       link.innerText = tab.label;
 //       outer.addEventListener('click', function(event) {
 //         clickHandler(event.currentTarget, event);
