@@ -86,6 +86,9 @@ export function run(options) {
 
 let xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
+// This is so Socrata and the City knows who we are and our app
+//     it can often prevent API throttling
+xhr.setRequestHeader('X-App-Token', 'uGISPdpNnBfwN4kmj9goaZBNM');
 xhr.onload = function() {
   if (xhr.status === 200) {
     new Vue({
