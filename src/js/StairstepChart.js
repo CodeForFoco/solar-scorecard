@@ -10,9 +10,10 @@ function prepareDataForDrawingOfStairstep(config) {
     const apiResponse = JSON.parse(config.data.fortCollins);
     let aggregatedByYear = {};
     apiResponse.forEach(r => {
-      let regex = /\d+\/\d+\/(\d+) \d+:\d+:\d+/;
+      let regex = /(\d+)-\d+-\d+T\d+:\d+:\d+/;
       const regSearchResult = regex.exec(r.date_of_service);
       if (regSearchResult == null) return;
+      console.log(regSearchResult);
       const year = regSearchResult[1];
       const previousValue = aggregatedByYear[year] ? aggregatedByYear[year] : 0;
       aggregatedByYear[year] =
