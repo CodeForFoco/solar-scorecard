@@ -19,8 +19,14 @@ export default function Tabs(config) {
     return acc;
   }, {});
 
-  var btnTemplate = document.getElementById('template--btn').innerHTML,
-    chartTemplate = document.getElementById('template--chart').innerHTML,
+  var btnTemplate = `{{#tabs}}
+        <a href="javascript:void(0);" data-chart-id="{{id}}" class="solarchart-tab button" data-id="{{id}}">{{label}}</a>
+      {{/tabs}}`,
+    chartTemplate = `{{#tabs}}
+        <div data-index="{{@index}}" data-chart-id="{{id}}" class="solarchart-tab-content" style="display: {{display}};">
+          <div class="solarchart-tab-content-inner"></div>
+        </div>
+      {{/tabs}}`,
     btnsRendered = Mustache.render(btnTemplate, { tabs: config.tabs }),
     chartsRendered = Mustache.render(chartTemplate, { tabs: config.tabs }),
     firstTabId = config.tabs[0].id,
