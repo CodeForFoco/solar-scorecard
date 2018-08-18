@@ -103,6 +103,14 @@ export function drawSolarScorecardCharts() {
   xhr.send();
 }
 
+Vue.component('solar-scorecard-charts', {
+  mounted: function() {
+    drawSolarScorecardCharts();
+  },
+  template:
+    '<div><div class="solarchart-tabs"></div><div id="charts"></div></div>',
+});
+
 new Vue({
   mounted() {
     drawSolarScorecardCharts();
