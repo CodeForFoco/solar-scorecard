@@ -54,9 +54,9 @@ export function drawSolarScorecardCharts() {
     if (xhr.status === 200) {
       let xhrDataContainer = {
         data: {
-          fortCollins: []
+          fortCollins: [],
         },
-        selector: '#stairstep-chart-tabs'
+        selector: '#stairstep-chart-tabs',
       };
       xhrDataContainer.data.fortCollins = xhr.responseText;
       Tabs({
@@ -78,7 +78,7 @@ export function drawSolarScorecardCharts() {
             id: 'ratios',
             display: 'none',
             label: 'Ratios',
-            callback: function (element) {
+            callback: function(element) {
               element.innerHTML =
                 '<canvas id="pie-chart" width="600" height="400"></canvas>';
 
@@ -99,7 +99,7 @@ export function drawSolarScorecardCharts() {
     } else {
       alert('FoCo API request failed.  Returned status of ' + xhr.status);
     }
-  }
+  };
   xhr.send();
 }
 
