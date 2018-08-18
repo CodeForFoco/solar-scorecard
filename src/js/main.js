@@ -65,7 +65,7 @@ export function drawSolarScorecardCharts() {
             id: 'projections',
             display: 'block',
             label: 'Projections',
-            callback: function (element) {
+            callback: function(element) {
               element.innerHTML =
                 '<canvas id="stairstep-chart" width="600" height="400"></canvas>';
               StairstepChart({
