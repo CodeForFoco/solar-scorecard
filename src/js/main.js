@@ -44,7 +44,7 @@ const router = new VueRouter({
 import Main from '../App.vue';
 
 // { selector : String, data :: Array [year, value] }
-export function run(options) {
+export function drawSolarScorecardCharts(options) {
   Tabs({
     tabs: [
       {
@@ -93,7 +93,7 @@ xhr.onload = function() {
   if (xhr.status === 200) {
     new Vue({
       mounted() {
-        run({
+        drawSolarScorecardCharts({
           selector: '#stairstep-chart-tabs',
           data: {
             fortCollins: xhr.responseText,
