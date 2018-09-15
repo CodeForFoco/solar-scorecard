@@ -16,21 +16,42 @@ Vue.component('methodology', RouteTemplates.methodology);
 Vue.component('about', RouteTemplates.about);
 Vue.component('why-solar', RouteTemplates.whySolar);
 
-// 1. Define route components.
-const Home = { template: '<home></home>' };
-const Methodology = { template: '<methodology></methodology>' };
-const About = { template: '<about></about>' };
-const WhySolar = { template: '<why-solar></why-solar>' };
-
-// 2. Define some routes
-// Each route should map to a component. The "component" can
-// either be an actual component constructor created via
+// Define components and routes. Each route should map to a component. The
+// "component" can either be an actual component constructor created via
 // `Vue.extend()`, or just a component options object.
 const routes = [
-  { path: '/', component: Home },
-  { path: '/why-solar', component: WhySolar },
-  { path: '/methodology', component: Methodology },
-  { path: '/about', component: About },
+  {
+    path: '/',
+    meta: { pageTitle: 'Home' },
+    component: {
+      template: '<home></home>',
+      created: emitPageTitleChange,
+    },
+  },
+  {
+    path: '/why-solar',
+    meta: { pageTitle: 'Why Count Solar?' },
+    component: {
+      template: '<why-solar></why-solar>',
+      created: emitPageTitleChange,
+    },
+  },
+  {
+    path: '/methodology',
+    meta: { pageTitle: 'How Solar Scorecard Thinks' },
+    component: {
+      template: '<methodology></methodology>',
+      created: emitPageTitleChange,
+    },
+  },
+  {
+    path: '/about',
+    meta: { pageTitle: 'All About Solar Scorecard' },
+    component: {
+      template: '<about></about>',
+      created: emitPageTitleChange,
+    },
+  },
 ];
 
 // 3. Create the router instance and pass the `routes` option
@@ -96,9 +117,7 @@ new Vue({
   router,
   methods: {
     goBack() {
-      window.history.length > 1 ?
-        this.$router.go(-1) :
-        this.$router.push('/');
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
     },
   },
   computed: {
@@ -109,3 +128,11 @@ new Vue({
   },
   render: h => h(Main),
 }).$mount('#app');
+
+/**
+ * Send a message toward the app root ("emit") to trigger a page title (top bar)
+ * update.
+ */
+function emitPageTitleChange() {
+  this.$emit('on-page-title-change', this.$route.meta.pageTitle);
+}

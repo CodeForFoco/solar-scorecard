@@ -5,12 +5,11 @@
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">Solar Scorecard</span>
+        <h1 class="md-title">{{pageTitle}}</h1>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
         <md-toolbar class="md-transparent" md-elevation="0">
-          <span>Navigation</span>
-
+          <img src="img/solar scorecard logo v4.svg" alt="solar scorecard logo">
           <div class="md-toolbar-section-end">
             <md-button class="md-icon-button md-dense" @click="toggleMenu">
               <md-icon>keyboard_arrow_left</md-icon>
@@ -43,7 +42,7 @@
 
       <md-app-content>
         <!-- component matched by the route will render here -->
-        <router-view></router-view>
+        <router-view @on-page-title-change="updatePageTitle"></router-view>
         <div class="solarchart-wrap">
           <div class="solarchart-tabs"></div>
           <div class="solarchart-tab-content-wrapper">
@@ -61,11 +60,17 @@ export default {
   data() {
     return {
       menuVisible: true,
+      pageTitle: 'This is the original title',
     };
   },
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
+    },
+    updatePageTitle(title){
+      console.log(title);
+
+      this.pageTitle = title;
     },
   },
 };
