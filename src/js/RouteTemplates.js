@@ -6,8 +6,8 @@ const getInvolved = {
   template: require('../templates/get-involved.html'),
 };
 
-const about = {
-  template: require('../templates/about.html'),
+const methodology = {
+  template: require('../templates/methodology.html'),
 };
 
 const contact = {
@@ -18,4 +18,4 @@ const whySolar = {
   template: require('../templates/why-solar.html'),
 };
 
-export { home, getInvolved, about, contact, whySolar };
+export { home, getInvolved, methodology, contact, whySolar };

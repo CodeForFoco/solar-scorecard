@@ -34,9 +34,9 @@
             <span class="md-list-item-text">Get involved</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/about')">
-            <md-icon>info</md-icon>
-            <span class="md-list-item-text">About us</span>
+          <md-list-item @click="$router.push('/methodology')">
+            <md-icon>directions</md-icon>
+            <span class="md-list-item-text">Methodology</span>
           </md-list-item>
 
           <md-list-item @click="$router.push('/contact')">

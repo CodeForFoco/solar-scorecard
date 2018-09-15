@@ -13,14 +13,14 @@ import PieChart from './PieChart.js';
 
 Vue.component('home', RouteTemplates.home);
 Vue.component('get-involved', RouteTemplates.getInvolved);
-Vue.component('about', RouteTemplates.about);
+Vue.component('methodology', RouteTemplates.methodology);
 Vue.component('contact', RouteTemplates.contact);
 Vue.component('why-solar', RouteTemplates.whySolar);
 
 // 1. Define route components.
 const Home = { template: '<home></home>' };
 const GetInvolved = { template: '<get-involved></get-involved>' };
-const About = { template: '<about></about>' };
+const Methodology = { template: '<methodology></methodology>' };
 const Contact = { template: '<contact></contact>' };
 const WhySolar = { template: '<why-solar></why-solar>' };
 
@@ -31,7 +31,7 @@ const WhySolar = { template: '<why-solar></why-solar>' };
 const routes = [
   { path: '/', component: Home },
   { path: '/get-involved', component: GetInvolved },
-  { path: '/about', component: About },
+  { path: '/methodology', component: Methodology },
   { path: '/contact', component: Contact },
   { path: '/why-solar', component: WhySolar },
 ];
