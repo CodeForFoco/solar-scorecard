@@ -98,7 +98,7 @@ Vue.component('solar-scorecard-stairstep', {
     };
     xhr.send();
   },
-  template: '<canvas id="stairstep-chart" width="600" height="400"></canvas>',
+  template: '<canvas id="stairstep-chart" width="600" height="240"></canvas>',
 });
 
 Vue.component('solar-scorecard-ratios', {
