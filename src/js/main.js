@@ -22,7 +22,7 @@ Vue.component('why-solar', RouteTemplates.whySolar);
 const routes = [
   {
     path: '/',
-    meta: { pageTitle: 'Home' },
+    meta: { pageTitle: 'The Solar Scorecard' },
     component: {
       template: '<home></home>',
       created: emitPageTitleChange,
