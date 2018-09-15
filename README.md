@@ -59,7 +59,7 @@ Not sure where to start? Look for [open issues][githubissue] on GitHub, or messa
 TL;DR Contribution Workflow:
 
 1. [Fork][fork] this repository and Clone your fork locally.
-1. This project has a handful of `NodeJS` dependencies, so if you do not already have it then install the [latest stable version][node].
+1. This project has a handful of `NodeJS` dependencies, so if you do not already have it then install the [latest stable version][node] (minimum required `node` version is `8.12.0`, and minimum `npm` version is `5`).
 1. Run `npm install` in your project folder.
 1. If you want files to automatically compile and reload your browser, run `npm start`.
 1. Checkout a new branch on which to make your changes.
