@@ -12,16 +12,14 @@ import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
 
 Vue.component('home', RouteTemplates.home);
-Vue.component('get-involved', RouteTemplates.getInvolved);
 Vue.component('methodology', RouteTemplates.methodology);
-Vue.component('contact', RouteTemplates.contact);
+Vue.component('about', RouteTemplates.about);
 Vue.component('why-solar', RouteTemplates.whySolar);
 
 // 1. Define route components.
 const Home = { template: '<home></home>' };
-const GetInvolved = { template: '<get-involved></get-involved>' };
 const Methodology = { template: '<methodology></methodology>' };
-const Contact = { template: '<contact></contact>' };
+const About = { template: '<about></about>' };
 const WhySolar = { template: '<why-solar></why-solar>' };
 
 // 2. Define some routes
@@ -30,10 +28,9 @@ const WhySolar = { template: '<why-solar></why-solar>' };
 // `Vue.extend()`, or just a component options object.
 const routes = [
   { path: '/', component: Home },
-  { path: '/get-involved', component: GetInvolved },
-  { path: '/methodology', component: Methodology },
-  { path: '/contact', component: Contact },
   { path: '/why-solar', component: WhySolar },
+  { path: '/methodology', component: Methodology },
+  { path: '/about', component: About },
 ];
 
 // 3. Create the router instance and pass the `routes` option
