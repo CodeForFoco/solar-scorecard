@@ -14,4 +14,8 @@ const contact = {
   template: require('../templates/contact.html'),
 };
 
-export { home, getInvolved, about, contact };
+const whySolar = {
+  template: require('../templates/why-solar.html'),
+};
+
+export { home, getInvolved, about, contact, whySolar };

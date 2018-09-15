@@ -19,22 +19,27 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item @click="$router.push('/');">
+          <md-list-item @click="$router.push('/')">
             <md-icon>home</md-icon>
             <span class="md-list-item-text">Home</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/get-involved');">
+          <md-list-item @click="$router.push('/why-solar')">
+            <md-icon>wb_sunny</md-icon>
+            <span class="md-list-item-text">Why Solar?</span>
+          </md-list-item>
+
+          <md-list-item @click="$router.push('/get-involved')">
             <md-icon>record_voice_over</md-icon>
             <span class="md-list-item-text">Get involved</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/about');">
+          <md-list-item @click="$router.push('/about')">
             <md-icon>info</md-icon>
             <span class="md-list-item-text">About us</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/contact');">
+          <md-list-item @click="$router.push('/contact')">
             <md-icon>question_answer</md-icon>
             <span class="md-list-item-text">Contact</span>
           </md-list-item>

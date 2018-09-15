@@ -16,12 +16,14 @@ Vue.component('home', RouteTemplates.home);
 Vue.component('get-involved', RouteTemplates.getInvolved);
 Vue.component('about', RouteTemplates.about);
 Vue.component('contact', RouteTemplates.contact);
+Vue.component('why-solar', RouteTemplates.whySolar);
 
 // 1. Define route components.
 const Home = { template: '<home></home>' };
 const GetInvolved = { template: '<get-involved></get-involved>' };
 const About = { template: '<about></about>' };
 const Contact = { template: '<contact></contact>' };
+const WhySolar = { template: '<why-solar></why-solar>' };
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -32,6 +34,7 @@ const routes = [
   { path: '/get-involved', component: GetInvolved },
   { path: '/about', component: About },
   { path: '/contact', component: Contact },
+  { path: '/why-solar', component: WhySolar },
 ];
 
 // 3. Create the router instance and pass the `routes` option
@@ -74,26 +77,6 @@ export function drawSolarScorecardCharts() {
               });
             },
           },
-          {
-            id: 'ratios',
-            display: 'none',
-            label: 'Ratios',
-            callback: function(element) {
-              element.innerHTML =
-                '<canvas id="pie-chart" width="600" height="400"></canvas>';
-
-              PieChart({
-                selector: '#pie-chart',
-                data: {
-                  Electric: 50,
-                  'Ground Travel': 26,
-                  'Natural Gas': 19,
-                  'Solid Waste': 4,
-                  'Water Related': 0.3,
-                },
-              });
-            },
-          },
         ],
       });
     } else {
@@ -103,7 +86,7 @@ export function drawSolarScorecardCharts() {
   xhr.send();
 }
 
-Vue.component('solar-scorecard-charts', {
+Vue.component('solar-scorecard-stairstep', {
   mounted: function() {
     drawSolarScorecardCharts();
   },
@@ -111,10 +94,23 @@ Vue.component('solar-scorecard-charts', {
     '<div><div class="solarchart-tabs"></div><div id="charts"></div></div>',
 });
 
-new Vue({
-  mounted() {
-    drawSolarScorecardCharts();
+Vue.component('solar-scorecard-ratios', {
+  mounted: function() {
+    PieChart({
+      selector: '#pie-chart',
+      data: {
+        Electric: 50,
+        'Ground Travel': 26,
+        'Natural Gas': 19,
+        'Solid Waste': 4,
+        'Water Related': 0.3,
+      },
+    });
   },
+  template: '<canvas id="pie-chart" width="600" height="400"></canvas>',
+});
+
+new Vue({
   router,
   methods: {
     goBack() {
