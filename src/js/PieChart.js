@@ -26,8 +26,8 @@ export default function PieChart(config) {
     }
   }
 
-  var stairChart = new Chart(ctx, {
-    type: 'pie',
+  new Chart(ctx, {
+    type: 'doughnut',
     data: {
       datasets: [
         {
@@ -44,8 +44,11 @@ export default function PieChart(config) {
       ],
       labels: labels,
     },
-    options: Chart.defaults.doughnut,
-
+    options: {
+      legend: {
+        position: 'left',
+      },
+    },
     responsive: true,
     maintainAspectRatio: true,
   });

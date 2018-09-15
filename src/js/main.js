@@ -42,36 +42,31 @@ const router = new VueRouter({
 
 import Main from '../App.vue';
 
-// { selector : String, data :: Array [year, value] }
-export function drawSolarScorecardCharts() {
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
-  // This is so Socrata and the City knows who we are and our app
-  //     it can often prevent API throttling
-  xhr.setRequestHeader('X-App-Token', 'uGISPdpNnBfwN4kmj9goaZBNM');
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      let xhrDataContainer = {
-        data: {
-          fortCollins: [],
-        },
-        selector: '#stairstep-chart-tabs',
-      };
-      xhrDataContainer.data.fortCollins = xhr.responseText;
-      StairstepChart({
-        selector: '#stairstep-chart',
-        data: xhrDataContainer.data,
-      });
-    } else {
-      alert('FoCo API request failed.  Returned status of ' + xhr.status);
-    }
-  };
-  xhr.send();
-}
-
 Vue.component('solar-scorecard-stairstep', {
   mounted: function() {
-    drawSolarScorecardCharts();
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
+    // This is so Socrata and the City knows who we are and our app
+    //     it can often prevent API throttling
+    xhr.setRequestHeader('X-App-Token', 'uGISPdpNnBfwN4kmj9goaZBNM');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        let xhrDataContainer = {
+          data: {
+            fortCollins: [],
+          },
+          selector: '#stairstep-chart-tabs',
+        };
+        xhrDataContainer.data.fortCollins = xhr.responseText;
+        StairstepChart({
+          selector: '#stairstep-chart',
+          data: xhrDataContainer.data,
+        });
+      } else {
+        alert('FoCo API request failed.  Returned status of ' + xhr.status);
+      }
+    };
+    xhr.send();
   },
   template: '<canvas id="stairstep-chart" width="600" height="400"></canvas>',
 });
@@ -89,7 +84,7 @@ Vue.component('solar-scorecard-ratios', {
       },
     });
   },
-  template: '<canvas id="pie-chart" width="600" height="400"></canvas>',
+  template: '<canvas id="pie-chart" width="600" height="200"></canvas>',
 });
 
 new Vue({
