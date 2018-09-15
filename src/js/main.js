@@ -15,6 +15,7 @@ Vue.component('home', RouteTemplates.home);
 Vue.component('methodology', RouteTemplates.methodology);
 Vue.component('about', RouteTemplates.about);
 Vue.component('why-solar', RouteTemplates.whySolar);
+Vue.component('going-solar', RouteTemplates.goingSolar);
 
 // Define components and routes. Each route should map to a component. The
 // "component" can either be an actual component constructor created via
@@ -49,6 +50,14 @@ const routes = [
     meta: { pageTitle: 'All About Solar Scorecard' },
     component: {
       template: '<about></about>',
+      created: emitPageTitleChange,
+    },
+  },
+  {
+    path: '/going-solar',
+    meta: { pageTitle: 'Resources for Going Solar' },
+    component: {
+      template: '<going-solar></going-solar>',
       created: emitPageTitleChange,
     },
   },

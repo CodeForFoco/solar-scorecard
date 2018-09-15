@@ -33,6 +33,11 @@
             <span class="md-list-item-text">Methodology</span>
           </md-list-item>
 
+          <md-list-item @click="$router.push('/going-solar')">
+            <md-icon>arrow_forward</md-icon>
+            <span class="md-list-item-text">Going Solar</span>
+          </md-list-item>
+
           <md-list-item @click="$router.push('/about')">
             <md-icon>info</md-icon>
             <span class="md-list-item-text">About</span>
