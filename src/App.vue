@@ -1,20 +1,18 @@
 <template>
   <div id="app" class="page-container">
     <md-app>
-      <md-app-toolbar class="md-primary" md-elevation="0">
+      <md-app-toolbar class="md-primary" md-elevation="1">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
         <h1 class="md-title">{{pageTitle}}</h1>
       </md-app-toolbar>
-      <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
+      <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
         <md-toolbar class="md-transparent" md-elevation="0">
+          <md-button class="md-icon-button" @click="toggleMenu">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
           <img src="img/solar scorecard logo v4.svg" alt="solar scorecard logo">
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
-              <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-          </div>
         </md-toolbar>
 
         <md-list>
@@ -44,7 +42,6 @@
           </md-list-item>
         </md-list>
       </md-app-drawer>
-
       <md-app-content>
         <!-- component matched by the route will render here -->
         <router-view @on-page-title-change="updatePageTitle"></router-view>
