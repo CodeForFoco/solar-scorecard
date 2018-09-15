@@ -4,6 +4,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extractPlugin = new ExtractTextPlugin({
   filename: 'css/main.css',
@@ -95,6 +96,7 @@ module.exports = {
       filename: '[name].js.map',
       exclude: ['mustache', 'mustache.js'],
     }),
+    new CopyWebpackPlugin([{ from: 'img', to: 'img' }]),
   ],
   devtool: '#source-map',
   // vue: {
