@@ -8,7 +8,6 @@ Vue.use(VueMaterial);
 Vue.use(VueRouter);
 
 import * as RouteTemplates from './RouteTemplates';
-import Tabs from './Tabs.js';
 import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
 
@@ -62,22 +61,9 @@ export function drawSolarScorecardCharts() {
         selector: '#stairstep-chart-tabs',
       };
       xhrDataContainer.data.fortCollins = xhr.responseText;
-      Tabs({
-        tabs: [
-          {
-            id: 'projections',
-            display: 'block',
-            label: 'Projections',
-            callback: function(element) {
-              element.innerHTML =
-                '<canvas id="stairstep-chart" width="600" height="400"></canvas>';
-              StairstepChart({
-                selector: '#stairstep-chart',
-                data: xhrDataContainer.data,
-              });
-            },
-          },
-        ],
+      StairstepChart({
+        selector: '#stairstep-chart',
+        data: xhrDataContainer.data,
       });
     } else {
       alert('FoCo API request failed.  Returned status of ' + xhr.status);
@@ -90,8 +76,7 @@ Vue.component('solar-scorecard-stairstep', {
   mounted: function() {
     drawSolarScorecardCharts();
   },
-  template:
-    '<div><div class="solarchart-tabs"></div><div id="charts"></div></div>',
+  template: '<canvas id="stairstep-chart" width="600" height="400"></canvas>',
 });
 
 Vue.component('solar-scorecard-ratios', {

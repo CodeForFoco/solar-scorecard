@@ -21,7 +21,7 @@
         <md-list>
           <md-list-item @click="$router.push('/')">
             <md-icon>home</md-icon>
-            <span class="md-list-item-text">Home</span>
+            <span class="md-list-item-text">The Solar Scorecard</span>
           </md-list-item>
 
           <md-list-item @click="$router.push('/why-solar')">
