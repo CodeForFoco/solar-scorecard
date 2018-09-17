@@ -1,36 +1,51 @@
-<div>
-<h2>Goal of Project</h2>
-<p>The goal of this project is to create an up-to-date web-based data visualization tool for tracking solar contributions with respect to <a href="http://www.fcgov.com/environmentalservices/pdf/cap-framework-2015.pdf">City of Fort Collins 2015 Climate Action Plan</a>, whose goal is to:</p>
-<blockquote>
-<p>reduce emissions 20% below 2005 levels by 2020, 80% below 2005 levels by 2030, and achieve carbon neutrality by 2050.</p>
-</blockquote>
+<div class="md-layout md-gutter md-alignment-center">
+  <div class="md-layout-item md-xlarge-size-50 md-large-size-80 md-medium-size-100">
+    <p class="md-title">
+      We don't think we should be your only stop for learning about solar energy, but we do have some good resources
+      about that topic. Please give the links below a look if you're interested in the topic.
+    </p>
+    <md-divider></md-divider>
+    <h2>Goal of Project</h2>
+    <p>The goal of this project is to create an up-to-date web-based data visualization tool for tracking solar
+      contributions with respect to <a href="http://www.fcgov.com/environmentalservices/pdf/cap-framework-2015.pdf">City
+        of Fort Collins 2015 Climate Action Plan</a>, whose goal is to:</p>
+    <blockquote>
+      <p>reduce emissions 20% below 2005 levels by 2020, 80% below 2005 levels by 2030, and achieve carbon neutrality
+        by 2050.</p>
+    </blockquote>
 
-    <p>For our work here to make sense, we have to make a few different assumptions, and figure them into our calculation.
-    This page explains those assumptions and what they mean.</p>
+    <p>For our work here to make sense, we have to make a few different assumptions, and figure them into our
+      calculation.
+      This page explains those assumptions and what they mean.</p>
 
-<h2>How we Converted the Climate Goal: Carbon to Kilowatts</h2>
+    <h2>How we Converted the Climate Goal: Carbon to Kilowatts</h2>
 
     <p>
-        The City's goal for electricity production in our chart is a fabrication. They've defined the goal in terms of
-        GHGs, where we're only interested in electricity. Fort this analysis to make sense, we had to convert between the two.
-        Here's how we did that...
+      The City's goal for electricity production in our chart is a fabrication. They've defined the goal in terms of
+      GHGs, where we're only interested in electricity. Fort this analysis to make sense, we had to convert between the
+      two.
+      Here's how we did that...
     </p>
-<p>Since the Climate Action Plan goal is in terms of aggregate 2005 greenhouse gases (GHG),
-    for our purposes we will focus only on the emissions due to electrical.
-    Based on <a href="https://www.fcgov.com/climateaction/pdf/2015-community-carbon-inventory.pdf?1494967837">Fort Collins 2015 Community Carbon Inventory</a>,
-    we will assume that 50% of emissions are due to electrical activity.</p>
+    <p>Since the Climate Action Plan goal is in terms of aggregate 2005 greenhouse gases (GHG),
+      for our purposes we will focus only on the emissions due to electrical.
+      Based on <a href="https://www.fcgov.com/climateaction/pdf/2015-community-carbon-inventory.pdf?1494967837">Fort
+        Collins 2015 Community Carbon Inventory</a>,
+      we will assume that 50% of emissions are due to electrical activity.</p>
 
-<h3>Define CO<sub>2</sub> Reference Points</h3>
+    <h3>Define CO<sub>2</sub> Reference Points</h3>
     <p>In 2005, GHG emissions due to CO<sub>2</sub> was 2.3 Million Metric Tons (mmt).
-        Therefore, we will assume the electrical-only emissions in 2005 were <strong>1,150,000 mt</strong>.
-        Therefore, the 2020 electrical-only goal is <strong>920,000 mt (230,000 mt reduction)</strong>,
-        and the 2030 electrical-only goal is <strong>230,000 mt (920,000 mt reduction)</strong>.
+      Therefore, we will assume the electrical-only emissions in 2005 were <strong>1,150,000 mt</strong>.
+      Therefore, the 2020 electrical-only goal is <strong>920,000 mt (230,000 mt reduction)</strong>,
+      and the 2030 electrical-only goal is <strong>230,000 mt (920,000 mt reduction)</strong>.
     </p>
 
-<h3>Convert Solar Capacity to CO<sub>2</sub> Reduction</h3>
-    <p>Based on the <a href="https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references">EPA's Greenhouse Gases Equivalencies Calculator</a>,
-        we will assume that every kilowatt hour (kWh) of solar energy produced will reduce emissions by <strong>.000703 mt</strong>.</p>
-    <p>Using these numbers we can express the 2020, 2030, and 2050 goals in terms of the kilowatt reductions needed to meet each goal.</p>
+    <h3>Convert Solar Capacity to CO<sub>2</sub> Reduction</h3>
+    <p>Based on the <a href="https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references">EPA's
+        Greenhouse Gases Equivalencies Calculator</a>,
+      we will assume that every kilowatt hour (kWh) of solar energy produced will reduce emissions by <strong>.000703
+        mt</strong>.</p>
+    <p>Using these numbers we can express the 2020, 2030, and 2050 goals in terms of the kilowatt reductions needed to
+      meet each goal.</p>
     <pre><code>2020: 20% Reduction
 230,000 mt / (.000703 mt / 1 kWh * 8760 hr) =  37,348 kW
 
@@ -42,5 +57,9 @@
 </code></pre>
 
     <h2>How much energy does a solar install produce?</h2>
-    <p>Using the <a href="http://pvwatts.nrel.gov/pvwatts.php">PVWatts Calculator</a> we can calculate Fort Collins' photovoltaic system output in kWh per year.  Assuming the variables in the table below, Fort Collins' system output is <strong>6,111 kWh/year</strong>.  Since there are 8760 hours in a year, Fort Collins' power output is <strong>0.6976 kW</strong>.</p>
+    <p>Using the <a href="http://pvwatts.nrel.gov/pvwatts.php">PVWatts Calculator</a> we can calculate Fort Collins'
+      photovoltaic system output in kWh per year. Assuming the variables in the table below, Fort Collins' system
+      output is <strong>6,111 kWh/year</strong>. Since there are 8760 hours in a year, Fort Collins' power output is
+      <strong>0.6976 kW</strong>.</p>
+  </div>
 </div>

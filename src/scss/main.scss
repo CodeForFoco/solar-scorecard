@@ -32,11 +32,17 @@ svg.root {
   max-width: calc(100vw - 125px);
 }
 
+// Link and link hover color
 .md-theme-default a:not(.md-button) {
   &:hover,
   & {
     color: $accent;
   }
+}
+
+// Default <body> font-size is a little small at 14px
+p {
+  font-size: 1rem;
 }
 
 // Brand logo above nav
