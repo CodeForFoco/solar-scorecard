@@ -16,27 +16,27 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item @click="$router.push('/')">
+          <md-list-item to="/">
             <md-icon>home</md-icon>
             <span class="md-list-item-text">The Solar Scorecard</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/why-solar')">
+          <md-list-item to="/why-solar">
             <md-icon>wb_sunny</md-icon>
             <span class="md-list-item-text">Why Solar?</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/methodology')">
+          <md-list-item to="/methodology">
             <md-icon>directions</md-icon>
             <span class="md-list-item-text">Methodology</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/going-solar')">
+          <md-list-item to="/going-solar">
             <md-icon>arrow_forward</md-icon>
             <span class="md-list-item-text">Going Solar</span>
           </md-list-item>
 
-          <md-list-item @click="$router.push('/about')">
+          <md-list-item to="/about">
             <md-icon>info</md-icon>
             <span class="md-list-item-text">About</span>
           </md-list-item>
@@ -70,8 +70,6 @@ export default {
       this.menuVisible = !this.menuVisible;
     },
     updatePageTitle(title){
-      console.log(title);
-
       this.pageTitle = title;
     },
   },
