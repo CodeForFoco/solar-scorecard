@@ -1,0 +1,36 @@
+/**
+ * Override Vue Material theme settings
+ */
+
+@include md-register-theme("default", (
+  // Darker shades of the logo's green and blue
+  primary: hsl(134, 54%, 41%),
+  accent: hsl(198, 80%, 38%),
+));
+
+$primary: md-get-color-by-type(primary, light);
+$accent: md-get-color-by-type(accent, light);
+
+// Nav link of active page
+.md-list.md-theme-default a.md-list-item-container.router-link-exact-active {
+  background-color: $primary;
+
+  // The actual text inside parent elements inside the anchor
+  .md-list-item-text {
+    color: md-get-palette-color(white, 50);
+  }
+
+  // Gray hover looks weird, so prevent it
+  &:not([disabled]):hover {
+    background-color: $primary;
+    color: md-get-palette-color(white, 50);
+  }
+
+  // Icon next to the text
+  .md-icon {
+    color: md-get-palette-color(white, 50);
+  }
+}
+
+// Apply the theme
+@import "~vue-material/dist/theme/all";

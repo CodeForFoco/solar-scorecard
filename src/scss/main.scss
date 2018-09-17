@@ -1,18 +1,22 @@
 /**
  * All SCSS imports happen here
  */
-@import "./tabs.scss";
+@import "./tabs";
+
+// Import the theme engine
+@import "~vue-material/dist/theme/engine";
+@import "./theme-overrides";
 
 // TODO: migrate everything from here down into relevant files
 svg.root {
-  background:#eee;
-  border:1px solid #000;
+  background: #eee;
+  border: 1px solid #000;
 }
 
 .line {
   stroke: #111;
-  stroke-width:2px;
-  fill:none;
+  stroke-width: 2px;
+  fill: none;
 }
 
 .future-minus {
@@ -26,4 +30,11 @@ svg.root {
 .md-drawer {
   width: 230px;
   max-width: calc(100vw - 125px);
+}
+
+.md-theme-default a:not(.md-button) {
+  &:hover,
+  & {
+    color: $accent;
+  }
 }
