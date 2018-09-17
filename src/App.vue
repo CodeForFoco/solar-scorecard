@@ -12,7 +12,7 @@
           <md-button class="md-icon-button" @click="toggleMenu">
             <md-icon>keyboard_arrow_left</md-icon>
           </md-button>
-          <img src="img/solar scorecard logo v4.svg" alt="solar scorecard logo">
+          <a href="/#/" class="logo"><img src="img/solar scorecard logo v4.svg" alt="solar scorecard logo"></a>
         </md-toolbar>
 
         <md-list>

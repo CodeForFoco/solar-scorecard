@@ -38,3 +38,10 @@ svg.root {
     color: $accent;
   }
 }
+
+// Brand logo above nav
+.logo {
+  $size: 150px;
+  height: $size;
+  width: $size;
+}
