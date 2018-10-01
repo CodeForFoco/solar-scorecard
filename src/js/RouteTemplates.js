@@ -2,6 +2,10 @@ const home = {
   template: require('../templates/home.html'),
 };
 
+const map = {
+  template: require('../templates/map.html'),
+};
+
 const methodology = {
   template: require('../templates/methodology.html'),
 };
@@ -18,4 +22,4 @@ const goingSolar = {
   template: require('../templates/going-solar.html'),
 };
 
-export { home, methodology, about, whySolar, goingSolar };
+export { home, map, methodology, about, whySolar, goingSolar };

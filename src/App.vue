@@ -21,6 +21,11 @@
             <span class="md-list-item-text">The Solar Scorecard</span>
           </md-list-item>
 
+          <md-list-item to="/map">
+            <md-icon>map</md-icon>
+            <span class="md-list-item-text">Map</span>
+          </md-list-item>
+
           <md-list-item to="/why-solar">
             <md-icon>wb_sunny</md-icon>
             <span class="md-list-item-text">Why Solar?</span>

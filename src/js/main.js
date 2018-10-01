@@ -11,6 +11,7 @@ import StairstepChart from './StairstepChart.js';
 import PieChart from './PieChart.js';
 
 Vue.component('home', RouteTemplates.home);
+Vue.component('solar-map', RouteTemplates.map);
 Vue.component('methodology', RouteTemplates.methodology);
 Vue.component('about', RouteTemplates.about);
 Vue.component('why-solar', RouteTemplates.whySolar);
@@ -26,6 +27,13 @@ const routes = [
     component: {
       template: '<home></home>',
       created: emitPageTitleChange,
+    },
+  },
+  {
+    path: '/map',
+    meta: { pageTitle: 'Fort Collins Solar Installation Map' },
+    component: {
+      template: '<solar-map></solar-map>', // Vue warns against <map>
     },
   },
   {
