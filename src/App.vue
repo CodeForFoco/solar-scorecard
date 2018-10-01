@@ -45,12 +45,6 @@
       <md-app-content>
         <!-- component matched by the route will render here -->
         <router-view @on-page-title-change="updatePageTitle"></router-view>
-        <div class="solarchart-wrap">
-          <div class="solarchart-tabs"></div>
-          <div class="solarchart-tab-content-wrapper">
-            <div id="charts"></div>
-          </div>
-        </div>
       </md-app-content>
     </md-app>
   </div>
