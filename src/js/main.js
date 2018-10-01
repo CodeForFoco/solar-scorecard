@@ -31,9 +31,10 @@ const routes = [
   },
   {
     path: '/map',
-    meta: { pageTitle: 'Fort Collins Solar Installation Map' },
+    meta: { pageTitle: 'Solar Installations Map' },
     component: {
       template: '<solar-map></solar-map>', // Vue warns against <map>
+      created: emitPageTitleChange,
     },
   },
   {
