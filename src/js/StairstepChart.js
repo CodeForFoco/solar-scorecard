@@ -211,6 +211,18 @@ export default function StairstepChart(config) {
           },
         ],
       },
+      tooltips: {
+        callbacks: {
+          title: (tooltipItems, data) => {
+            const point =
+              data.datasets[tooltipItems[0].datasetIndex].data[
+                tooltipItems[0].index
+              ];
+
+            return point.x;
+          },
+        },
+      },
     },
   });
 }
