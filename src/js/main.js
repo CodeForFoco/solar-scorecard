@@ -114,9 +114,9 @@ Vue.component('solar-scorecard-ratios', {
     PieChart({
       selector: '#pie-chart',
       data: {
-        Electric: 50,
-        'Ground Travel': 26,
-        'Natural Gas': 19,
+        Electric: 51,
+        'Ground Travel': 24,
+        'Natural Gas': 21,
         'Solid Waste': 4,
         'Water Related': 0.3,
       },
