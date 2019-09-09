@@ -83,7 +83,7 @@ import Main from '../App.vue';
 Vue.component('solar-scorecard-stairstep', {
   mounted: function() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://opencity.fcgov.com/resource/ykei-s9zt.json');
+    xhr.open('GET', 'https://opendata.fcgov.com/resource/3ku5-x4k9.json?$order=meta_row_index&$limit=100000');
     // This is so Socrata and the City knows who we are and our app
     //     it can often prevent API throttling
     xhr.setRequestHeader('X-App-Token', 'uGISPdpNnBfwN4kmj9goaZBNM');
