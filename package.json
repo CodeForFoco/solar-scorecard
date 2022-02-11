@@ -34,7 +34,7 @@
     "vue-material": "^1.0.0-beta-8"
   },
   "devDependencies": {
-    "ajv": "^6.1.1",
+    "ajv": "^6.12.3",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.2",
